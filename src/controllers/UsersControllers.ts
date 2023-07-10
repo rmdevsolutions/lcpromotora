@@ -102,13 +102,13 @@ const getAllUsersTickets = async () => {
           "#filtroChamado > div > div.card-body > div:nth-child(4) > div.col-md-1 > button"
         );
 
-        var screenshotBuffer = await UsersTicket.getPage().screenshot();
-        return screenshotBuffer;
-
         await new Promise((resolve) => setTimeout(resolve, 500));
         await UsersTicket.getPage().waitForSelector(".loadingoverlay", {
           hidden: true,
         });
+
+        var screenshotBuffer = await UsersTicket.getPage().screenshot();
+        return screenshotBuffer;
 
         const selectorTableName = tablesIds[parseInt(index) - 1].replace(
           "#",
