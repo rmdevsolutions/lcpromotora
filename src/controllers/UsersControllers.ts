@@ -30,7 +30,7 @@ function getCurrentDate() {
   const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
   const year = currentDate.getFullYear();
 
-  const formattedDate = `${day}/${month}/${year}`;
+  const formattedDate = `${month}/${day}/${year}`;
 
   return formattedDate;
 }
@@ -51,7 +51,7 @@ function getThirtyDaysAgoDate(dateString: string) {
   const newYear = date.getFullYear();
 
   // Formata a nova data no formato DD/MM/AAAA
-  const formattedDate = `${newDay.toString().padStart(2, "0")}/${newMonth
+  const formattedDate = `${newMonth.toString()}/${newDay
     .toString()
     .padStart(2, "0")}/${newYear}`;
 
