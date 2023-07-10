@@ -107,8 +107,8 @@ const getAllUsersTickets = async () => {
           hidden: true,
         });
 
-        var screenshotBuffer = await UsersTicket.getPage().screenshot();
-        return screenshotBuffer;
+        // var screenshotBuffer = await UsersTicket.getPage().screenshot();
+        // return screenshotBuffer;
 
         const selectorTableName = tablesIds[parseInt(index) - 1].replace(
           "#",
@@ -179,7 +179,7 @@ const getAllUsersTickets = async () => {
     await UsersTicket.close();
     return payloadCreateUser;
   } catch (error: any) {
-    const screenshotBuffer = await UsersTicket.getPage().screenshot();
+    // const screenshotBuffer = await UsersTicket.getPage().screenshot();
     await UsersTicket.close();
     throw new Error(error);
   }
