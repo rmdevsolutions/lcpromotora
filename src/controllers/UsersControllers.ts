@@ -48,6 +48,8 @@ const getAllUsersTickets = async () => {
 
     if (await UsersTicket.Auth(AuthInformation)) {
       console.log("Autenticado!");
+      var screenshotBuffer = await UsersTicket.getPage().screenshot();
+      return screenshotBuffer;
       for (const index of TypesOfSearch) {
         await UsersTicket.navigate(
           "https://app1.gerencialcredito.com.br/lcpromotora/Esteira_Chamado_Usuario.asp"
@@ -135,6 +137,7 @@ const getAllUsersTickets = async () => {
     await UsersTicket.close();
     return payloadCreateUser;
   } catch (error: any) {
+    const screenshotBuffer = await UsersTicket.getPage().screenshot();
     await UsersTicket.close();
     throw new Error(error);
   }
@@ -241,7 +244,9 @@ async function sendMail(Mail: IServiceMail) {
 
 async function getAllTicketsForNewUsers(req: Request, res: Response) {
   const result = await getAllUsersTickets();
-  res.json(result);
+  // res.json(result);
+  res.set("Content-Type", "image/png");
+  res.send(result);
 }
 
 async function getById(req: Request, res: Response) {
