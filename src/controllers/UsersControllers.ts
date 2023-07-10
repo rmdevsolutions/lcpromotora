@@ -23,6 +23,41 @@ const sendEmailsFromList = async () => {
   }
 };
 
+function getCurrentDate() {
+  const currentDate = new Date();
+
+  const day = currentDate.getDate().toString().padStart(2, "0");
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+  const year = currentDate.getFullYear();
+
+  const formattedDate = `${day}/${month}/${year}`;
+
+  return formattedDate;
+}
+
+function getThirtyDaysAgoDate(dateString: string) {
+  // Divide a string em dia, mês e ano
+  const [day, month, year] = dateString.split("/");
+
+  // Cria um objeto Date com a data fornecida
+  const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+
+  // Subtrai 30 dias da data
+  date.setDate(date.getDate() - 30);
+
+  // Obtém o dia, mês e ano da nova data
+  const newDay = date.getDate();
+  const newMonth = date.getMonth() + 1;
+  const newYear = date.getFullYear();
+
+  // Formata a nova data no formato DD/MM/AAAA
+  const formattedDate = `${newDay.toString().padStart(2, "0")}/${newMonth
+    .toString()
+    .padStart(2, "0")}/${newYear}`;
+
+  return formattedDate;
+}
+
 const getAllUsersTickets = async () => {
   const UsersTicket = new Puppeteer();
   await UsersTicket.initialize();
@@ -53,8 +88,13 @@ const getAllUsersTickets = async () => {
         await UsersTicket.navigate(
           "https://app1.gerencialcredito.com.br/lcpromotora/Esteira_Chamado_Usuario.asp"
         );
+
+        const dtoEnd = getCurrentDate();
+        const dtoStart = getThirtyDaysAgoDate(dtoEnd);
+
         await UsersTicket.selectOption("#ddlTipoChamado", index);
-        await UsersTicket.getPage().type(`#txtDataInicial`, "01/07/2023");
+        await UsersTicket.getPage().type(`#txtDataInicial`, dtoStart);
+        await UsersTicket.getPage().type(`#txtDataFinal`, dtoEnd);
         // await UsersTicket.selectOption("#status", "16");
         // await UsersTicket.selectOption("#servico", "19");
         await UsersTicket.getPage().click("#chkFinalizado");
