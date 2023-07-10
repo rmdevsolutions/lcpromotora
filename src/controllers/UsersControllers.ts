@@ -37,7 +37,7 @@ function getCurrentDate() {
 
 function getThirtyDaysAgoDate(dateString: string) {
   // Divide a string em dia, mês e ano
-  const [day, month, year] = dateString.split("/");
+  const [month, day, year] = dateString.split("/");
 
   // Cria um objeto Date com a data fornecida
   const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
