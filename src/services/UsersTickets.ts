@@ -21,11 +21,8 @@ export const getAllStatusZero = (
   return UsersTicketDal.getAllStatusZero(bank, status);
 };
 
-export const getAllStatusEnded = (
-  bank: string,
-  status: string
-): Promise<IUsersTicketsOutput[]> => {
-  return UsersTicketDal.getAllStatusEnded(bank, status);
+export const getAllStatusEnded = (): Promise<IUsersTicketsOutput[]> => {
+  return UsersTicketDal.getAllStatusEnded();
 };
 
 export const getNotSended = (

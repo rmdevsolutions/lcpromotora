@@ -18,4 +18,6 @@ router.get(
 );
 router.get("/reset-user/c6bank", CreateUsersController.resetUserC6BankRequest);
 
+//atualização de Usuários
+router.get("/update-2tech", UsersController.insertInformationThowTechRequest);
 export default router;

@@ -27,15 +27,10 @@ export const getAllStatusZero = async (
   });
 };
 
-export const getAllStatusEnded = async (
-  bank: string,
-  status: string
-): Promise<IUsersTicketsOutput[]> => {
+export const getAllStatusEnded = async (): Promise<IUsersTicketsOutput[]> => {
   return UsersTickets.findAll({
     where: {
-      STATUS: "finalizado com sucesso",
-      SYS_STATUS: status,
-      SYS_SERVICE: bank,
+      STATUS: { [Op.not]: ["0", "1"] },
     },
   });
 };

@@ -367,11 +367,14 @@ async function resetAndGetInformation(C6Bank: Puppeteer) {
   }
 }
 
-async function resetUserC6BankRequest(req: Request, res: Response) {}
+async function resetUserC6BankRequest(req: Request, res: Response) {
+  const result = await resetUserC6Bank();
+  res.json(result);
+}
 
 async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
   const UsersTicketZero = await service.getAllStatusZero(
-    "NOVO USUÁRIO - C6 BANK",
+    "REINICIALIZAÇÃO - C6 BANK",
     "NOVO"
   );
 
@@ -405,7 +408,10 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
         await C6Bank.getPage().waitForSelector(`#btnConfirmar_txt`);
 
         const selectorCPF = `input[name="ctl00$Cph$FIJN1$jnGridManutencao$UcGridManUsu$txtCampoPesq$CAMPO"]`;
-        await C6Bank.getPage().type(selectorCPF, `04517654354`);
+        await C6Bank.getPage().type(
+          selectorCPF,
+          row.SYS_IDENTITY?.replace(/[.-]/g, "")
+        );
 
         await C6Bank.getPage().click(`#btnPesquisar_txt`);
 

@@ -9,13 +9,15 @@ async function initCronFunction() {
 
     await CreateUsersController.createUserC6Bank();
     await CreateUsersController.resetUserC6Bank();
+
+    await UsersController.insertInformationThowTech();
   } catch (error) {
     console.log("Algo Aconteceu: ", error);
   }
 }
 
 const task = cron.schedule(
-  "*/30 * * * *",
+  "*/10 * * * *",
   async () => {
     console.log("Running a job at 00:30min at America/Sao_Paulo timezone");
     await initCronFunction();

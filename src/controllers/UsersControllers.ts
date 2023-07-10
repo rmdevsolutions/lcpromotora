@@ -40,76 +40,85 @@ const getAllUsersTickets = async () => {
       user: "Rmtec9",
       timeout: 60,
     };
+    const payloadCreateUser: Array<IUsersTicketsOutput> = [];
+    const TypesOfSearch = ["1", "2"];
+    const tablesIds = ["#tableNovo", "#tableReinicializacao"];
 
     if (await UsersTicket.Auth(AuthInformation)) {
-      await UsersTicket.navigate(
-        "https://app1.gerencialcredito.com.br/lcpromotora/Esteira_Chamado_Usuario.asp"
-      );
-      await UsersTicket.selectOption("#ddlTipoChamado", "1");
-      // await UsersTicket.selectOption("#status", "16");
-      // await UsersTicket.selectOption("#servico", "19");
-      await UsersTicket.getPage().click("#chkFinalizado");
-      await UsersTicket.getPage().click(
-        "#filtroChamado > div > div.card-body > div:nth-child(4) > div.col-md-1 > button"
-      );
-    }
+      for (const index of TypesOfSearch) {
+        await UsersTicket.navigate(
+          "https://app1.gerencialcredito.com.br/lcpromotora/Esteira_Chamado_Usuario.asp"
+        );
+        await UsersTicket.selectOption("#ddlTipoChamado", index);
+        await UsersTicket.getPage().type(`#txtDataInicial`, "01/07/2023");
+        // await UsersTicket.selectOption("#status", "16");
+        // await UsersTicket.selectOption("#servico", "19");
+        await UsersTicket.getPage().click("#chkFinalizado");
+        await UsersTicket.getPage().click(
+          "#filtroChamado > div > div.card-body > div:nth-child(4) > div.col-md-1 > button"
+        );
+        const selectorTableName = tablesIds[parseInt(index) - 1].replace(
+          "#",
+          ""
+        );
+        const selectorTable = tablesIds[parseInt(index) - 1];
 
-    const selectorTable = `#tableNovo`;
+        await UsersTicket.getPage().waitForSelector(selectorTable);
 
-    await UsersTicket.getPage().waitForSelector(selectorTable);
+        const selectorLengthTable = `select[name="${selectorTableName}_length"]`;
 
-    const selectorLengthTable = `select[name="tableNovo_length"]`;
+        let tableJSON: Record<string, string>[];
 
-    let tableJSON: Record<string, string>[];
-
-    await UsersTicket.getPage().$eval(
-      `${selectorLengthTable} option:last-child`,
-      (option) => {
-        option.value = "1000000";
-      }
-    );
-
-    tableJSON = await UsersTicket.extractTable(
-      selectorTable,
-      "1000000",
-      selectorLengthTable
-    );
-
-    console.log(JSON.stringify(tableJSON));
-
-    const payloadCreateUser: Array<IUsersTicketsOutput> = [];
-    for (const column of tableJSON) {
-      if (column.col1 !== undefined) {
-        const linkVizalization = `https://app1.gerencialcredito.com.br/lcpromotora/Chamado_usuario_editar_new.asp?ChamadoID=${column.col1}`;
-        await UsersTicket.navigate(linkVizalization);
-
-        await UsersTicket.getPage().waitForSelector("#nascimento");
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-
-        const dateBorne = await UsersTicket.getPage().$eval(
-          'input[name="nascimento"]',
-          (el) => el.value
+        await UsersTicket.getPage().$eval(
+          `${selectorLengthTable} option:last-child`,
+          (option) => {
+            option.value = "1000000";
+          }
         );
 
-        const payloadItem: IUsersTickets = {
-          SYS_ID: column.col1,
-          SYS_STATUS: column.col2,
-          SYS_SERVICE: column.col3,
-          SYS_CREATE_AT: column.col4,
-          SYS_IDENTITY: column.col8,
-          SYS_INFORMATION: column.col6,
-          SYS_CLIENT: column.col5,
-          SYS_CREATED_BY: column.col9,
-          STATUS: "0",
-          ID: null,
-          USERNAME: null,
-          PASSWORD: null,
-          INFORMATIONS: null,
-          SYS_DATE_BORN: dateBorne,
-        };
+        tableJSON = await UsersTicket.extractTable(
+          selectorTable,
+          "1000000",
+          selectorLengthTable
+        );
 
-        const response = await service.update(payloadItem.SYS_ID, payloadItem);
-        payloadCreateUser.push(response);
+        for (const column of tableJSON) {
+          if (column.col1 !== undefined) {
+            const linkVizalization = `https://app1.gerencialcredito.com.br/lcpromotora/Chamado_usuario_editar_new.asp?ChamadoID=${column.col1}`;
+            await UsersTicket.navigate(linkVizalization);
+
+            await UsersTicket.getPage().waitForSelector("#nascimento");
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+
+            const dateBorne = await UsersTicket.getPage().$eval(
+              'input[name="nascimento"]',
+              (el) => el.value
+            );
+
+            const payloadItem: IUsersTickets = {
+              SYS_ID: column.col1,
+              SYS_STATUS: column.col2,
+              SYS_SERVICE: column.col3,
+              SYS_CREATE_AT: column.col4,
+              SYS_IDENTITY: column.col8,
+              SYS_INFORMATION: column.col6,
+              SYS_CLIENT: column.col5,
+              SYS_CREATED_BY: column.col9,
+              STATUS: "0",
+              ID: null,
+              USERNAME: null,
+              PASSWORD: null,
+              INFORMATIONS: null,
+              SYS_DATE_BORN: dateBorne,
+            };
+
+            const response = await service.update(
+              payloadItem.SYS_ID,
+              payloadItem
+            );
+            payloadCreateUser.push(response);
+          }
+        }
       }
     }
 
@@ -123,6 +132,11 @@ const getAllUsersTickets = async () => {
 
 async function postCustomer(req: Request, res: Response, next: NextFunction) {
   res.json({});
+}
+
+async function insertInformationThowTechRequest(req: Request, res: Response) {
+  const result = await insertInformationThowTech();
+  res.json(result);
 }
 
 async function insertInformationThowTech(): Promise<void | []> {
@@ -144,17 +158,14 @@ async function insertInformationThowTech(): Promise<void | []> {
     };
 
     if (await UsersTicket.Auth(AuthInformation)) {
-      const UsersTicketZero = await service.getAllStatusZero(
-        "NOVO USUÁRIO - C6 BANK",
-        "NOVO"
-      );
+      const UsersTicketZero = await service.getAllStatusEnded();
 
       if (UsersTicketZero.length === 0) return [];
       for (const row of UsersTicketZero) {
         try {
           const url = `https://app1.gerencialcredito.com.br/lcpromotora/interacaoChamado.asp?chamadoId=${row.SYS_ID}&altera=1&VinculoId=undefined`;
           await UsersTicket.navigate(url);
-          const status = row.SYS_STATUS;
+          const status = row.STATUS;
 
           if (status === "finalizado com sucesso") {
             await UsersTicket.selectOption("#ddlStatusInteracao", "7");
@@ -169,6 +180,8 @@ async function insertInformationThowTech(): Promise<void | []> {
             await UsersTicket.getPage().click(
               `#spanCamposInteracao > div:nth-child(5) > button`
             );
+
+            await persistUserAndPassword(row);
           } else {
             await UsersTicket.selectOption("#ddlStatusInteracao", "13");
             await UsersTicket.getPage().type(
@@ -179,6 +192,7 @@ async function insertInformationThowTech(): Promise<void | []> {
             await UsersTicket.getPage().click(
               `#spanCamposInteracao > div:nth-child(5) > button`
             );
+            await persistUserAndPassword(row);
           }
         } catch (error) {}
       }
@@ -239,6 +253,17 @@ async function getEmails(req: Request, res: Response) {
   imap.connect();
 }
 
+async function persistUserAndPassword(
+  row: IUsersTickets
+): Promise<IUsersTicketsOutput> {
+  const payloadItem: IUsersTickets = {
+    ...row,
+    STATUS: "1",
+  };
+  const response = await service.update(row.SYS_ID, payloadItem);
+  return response;
+}
+
 export default {
   postCustomer,
   getUsers,
@@ -248,4 +273,5 @@ export default {
   getEmails,
   sendMail,
   insertInformationThowTech,
+  insertInformationThowTechRequest,
 };
