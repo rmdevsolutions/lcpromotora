@@ -20,8 +20,8 @@ class Puppeteer {
 
   async initialize(): Promise<void> {
     this.browser = await puppeteer.launch({
-      headless: false,
-      args: ["--start-maximized"],
+      headless: "new",
+      args: ["--no-sandbox"],
     });
     this.page = await this.browser.newPage();
   }
