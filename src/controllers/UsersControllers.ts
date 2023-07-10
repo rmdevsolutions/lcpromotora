@@ -32,6 +32,8 @@ const getAllUsersTickets = async () => {
       "https://app1.gerencialcredito.com.br/lcpromotora/default.asp"
     );
 
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
     const AuthInformation = {
       btnSelector: "#btnLogin",
       usrSelector: "#txtUsuario",
@@ -45,6 +47,7 @@ const getAllUsersTickets = async () => {
     const tablesIds = ["#tableNovo", "#tableReinicializacao"];
 
     if (await UsersTicket.Auth(AuthInformation)) {
+      console.log("Autenticado!");
       for (const index of TypesOfSearch) {
         await UsersTicket.navigate(
           "https://app1.gerencialcredito.com.br/lcpromotora/Esteira_Chamado_Usuario.asp"
@@ -57,6 +60,12 @@ const getAllUsersTickets = async () => {
         await UsersTicket.getPage().click(
           "#filtroChamado > div > div.card-body > div:nth-child(4) > div.col-md-1 > button"
         );
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        await UsersTicket.getPage().waitForSelector(".loadingoverlay", {
+          hidden: true,
+        });
+
         const selectorTableName = tablesIds[parseInt(index) - 1].replace(
           "#",
           ""
@@ -67,6 +76,7 @@ const getAllUsersTickets = async () => {
 
         const selectorLengthTable = `select[name="${selectorTableName}_length"]`;
 
+        console.log("primeiro estágio");
         let tableJSON: Record<string, string>[];
 
         await UsersTicket.getPage().$eval(
