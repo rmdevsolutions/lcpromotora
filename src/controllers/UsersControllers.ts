@@ -93,8 +93,8 @@ const getAllUsersTickets = async () => {
         const dtoStart = getThirtyDaysAgoDate(dtoEnd);
 
         await UsersTicket.selectOption("#ddlTipoChamado", index);
-        await UsersTicket.getPage().type(`#txtDataInicial`, dtoStart);
-        await UsersTicket.getPage().type(`#txtDataFinal`, dtoEnd);
+        // await UsersTicket.getPage().type(`#txtDataInicial`, dtoStart);
+        // await UsersTicket.getPage().type(`#txtDataFinal`, dtoEnd);
         // await UsersTicket.selectOption("#status", "16");
         // await UsersTicket.selectOption("#servico", "19");
         await UsersTicket.getPage().click("#chkFinalizado");
