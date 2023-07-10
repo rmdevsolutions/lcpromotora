@@ -48,8 +48,7 @@ const getAllUsersTickets = async () => {
 
     if (await UsersTicket.Auth(AuthInformation)) {
       console.log("Autenticado!");
-      var screenshotBuffer = await UsersTicket.getPage().screenshot();
-      return screenshotBuffer;
+
       for (const index of TypesOfSearch) {
         await UsersTicket.navigate(
           "https://app1.gerencialcredito.com.br/lcpromotora/Esteira_Chamado_Usuario.asp"
@@ -67,6 +66,9 @@ const getAllUsersTickets = async () => {
         await UsersTicket.getPage().waitForSelector(".loadingoverlay", {
           hidden: true,
         });
+
+        var screenshotBuffer = await UsersTicket.getPage().screenshot();
+        return screenshotBuffer;
 
         const selectorTableName = tablesIds[parseInt(index) - 1].replace(
           "#",
