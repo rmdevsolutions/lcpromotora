@@ -7,6 +7,7 @@ import UsersTickets, {
   IUsersTicketsOutput,
 } from "../models/UsersTickets";
 import { ElementHandle, Frame } from "puppeteer";
+import logger from "../logger";
 
 interface IServiceMail {
   service: string | null;
@@ -81,7 +82,7 @@ async function createUserC6BankRequest(req: Request, res: Response) {
 }
 
 async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
-  console.log("Iniciado processo de Criação");
+  logger.info("Iniciado processo de Criação");
   const UsersTicketZero = await service.getAllStatusZero(
     "NOVO USUÁRIO - C6 BANK",
     "NOVO"
@@ -233,7 +234,7 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
               `ctl00_Cph_popConfirmacao_frameAjuda`
             );
 
-            console.log(frame);
+            logger.info(frame);
 
             const iframeElementHandle = await C6Bank.getPage().$(
               iframeSelector
@@ -264,6 +265,7 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
 
             AuthCreate.created = true;
           } catch (error) {
+            logger.error(error);
             AuthCreate.created = false;
           }
 
@@ -274,6 +276,7 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
           outputResult.push(result);
         }
       } catch (error: any) {
+        logger.error(error);
         throw new Error(error);
       }
     } else {
@@ -281,10 +284,11 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
     }
   } catch (error: any) {
     // await C6Bank.close();
+    logger.error(error);
     throw new Error(error);
   }
 
-  console.log("Finalizado processo de Criação");
+  logger.info("Finalizado processo de Criação");
   await C6Bank.close();
   return outputResult;
 }
@@ -309,6 +313,7 @@ async function waitFrameAndGetInformation(
     const iframeContent = await iframeElementHandle.contentFrame();
     return iframeContent;
   } catch (error) {
+    logger.error(error);
     return null;
   }
 }
@@ -365,6 +370,7 @@ async function resetAndGetInformation(C6Bank: Puppeteer) {
       AuthCreate.created = false;
     }
   } catch (error) {
+    logger.error(error);
     AuthCreate.created = false;
   }
 }
@@ -375,7 +381,7 @@ async function resetUserC6BankRequest(req: Request, res: Response) {
 }
 
 async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
-  console.log("Iniciado processo de Reinicialização");
+  logger.info("Iniciado processo de Reinicialização");
   const UsersTicketZero = await service.getAllStatusZero(
     "REINICIALIZAÇÃO - C6 BANK",
     "NOVO"
@@ -436,7 +442,7 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
         );
 
         if (statusUser !== "Inativar") {
-          console.log("entrou no reset reativando");
+          logger.info("entrou no reset reativando");
           await optionsTagA[1].evaluate((el) => el.click());
 
           await new Promise((resolve) => setTimeout(resolve, 500));
@@ -455,7 +461,7 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
             );
 
             if (framePopConfirm !== null) {
-              console.log("modo frame localizado");
+              logger.info("modo frame localizado");
               await new Promise((resolve) => setTimeout(resolve, 500));
               await framePopConfirm.waitForSelector(`#btnVoltar_txt`);
               await framePopConfirm.click(`#btnVoltar_txt`);
@@ -470,9 +476,11 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
               AuthCreate
             );
             outputResult.push(result);
-          } catch (ex) {}
+          } catch (ex) {
+            logger.error(ex);
+          }
         } else {
-          console.log("Entrou no reset sem ativar");
+          logger.info("Entrou no reset sem ativar");
           await resetAndGetInformation(C6Bank);
           const result: IUsersTicketsOutput = await persistUserAndPassword(
             row,
@@ -481,12 +489,13 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
           outputResult.push(result);
         }
       } catch (error: any) {
+        logger.error(error);
         throw new Error(error);
       }
     }
   }
 
-  console.log("Finalizado processo de Reinicialização");
+  logger.info("Finalizado processo de Reinicialização");
   await C6Bank.close();
   return outputResult;
 }

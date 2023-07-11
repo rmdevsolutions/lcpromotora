@@ -9,6 +9,7 @@ import UsersTickets, {
 
 import imap from "../models/ReadMails";
 import SendMail from "../models/SendMails";
+import logger from "../logger";
 
 interface IServiceMail {
   service: string | null;
@@ -27,7 +28,7 @@ function getCurrentDate() {
   const date = new Date();
   let yesterday = date.toString();
   yesterday = date.toLocaleDateString("en-GB");
-  yesterday = yesterday.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$1$2$3");
+  yesterday = yesterday.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2$1$3");
   return yesterday;
 }
 
@@ -36,7 +37,7 @@ function getThirtyDaysAgoDate() {
   const daysOff = 0;
   let yesterday = date.setDate(date.getDate() - daysOff).toString();
   yesterday = date.toLocaleDateString("en-GB");
-  yesterday = yesterday.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$1$2$3");
+  yesterday = yesterday.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2$1$3");
 
   return yesterday;
 }
@@ -65,7 +66,7 @@ const getAllUsersTickets = async () => {
     const tablesIds = ["#tableNovo", "#tableReinicializacao"];
 
     if (await UsersTicket.Auth(AuthInformation)) {
-      console.log("Autenticado!");
+      logger.info("Autenticado!");
 
       for (const index of TypesOfSearch) {
         await UsersTicket.navigate(
@@ -103,7 +104,7 @@ const getAllUsersTickets = async () => {
 
         const selectorLengthTable = `select[name="${selectorTableName}_length"]`;
 
-        console.log("primeiro estágio");
+        logger.info("primeiro estágio");
         let tableJSON: Record<string, string>[];
 
         await UsersTicket.getPage().$eval(
@@ -119,10 +120,10 @@ const getAllUsersTickets = async () => {
           selectorLengthTable
         );
 
-        console.log("Quantidade de Registros: ", tableJSON.length);
+        logger.info(`Quantidade de Registros: ${tableJSON.length}`);
 
         for (const column of tableJSON) {
-          console.log("Cliente: ", column.col5);
+          logger.info(`Cliente: ${column.col5}`);
           if (column.col1 !== undefined) {
             const linkVizalization = `https://app1.gerencialcredito.com.br/lcpromotora/Chamado_usuario_editar_new.asp?ChamadoID=${column.col1}`;
             await UsersTicket.navigate(linkVizalization);
@@ -162,12 +163,13 @@ const getAllUsersTickets = async () => {
       }
     }
 
-    console.log("Finalizado Coleta de Dados");
+    logger.info("Finalizado Coleta de Dados");
     await UsersTicket.close();
     return payloadCreateUser;
   } catch (error: any) {
     // const screenshotBuffer = await UsersTicket.getPage().screenshot();
     await UsersTicket.close();
+    logger.error(error);
     throw new Error(error);
   }
 };
@@ -182,7 +184,7 @@ async function insertInformationThowTechRequest(req: Request, res: Response) {
 }
 
 async function insertInformationThowTech(): Promise<void | []> {
-  console.log("Iniciado processo de Atualização");
+  logger.info("Iniciado processo de Atualização");
   const UsersTicket = new Puppeteer();
   await UsersTicket.initialize();
 
@@ -237,14 +239,17 @@ async function insertInformationThowTech(): Promise<void | []> {
             );
             await persistUserAndPassword(row);
           }
-        } catch (error) {}
+        } catch (error) {
+          logger.error(error);
+        }
       }
     }
   } catch (error: any) {
+    logger.error(error);
     throw Error(error);
   }
 
-  console.log("Finalizado processo de Atualização");
+  logger.info("Finalizado processo de Atualização");
   await UsersTicket.close();
 }
 
@@ -270,7 +275,7 @@ async function sendMail(Mail: IServiceMail) {
     htmlBody
   );
 
-  console.log(send);
+  logger.info(send);
 }
 
 async function getAllTicketsForNewUsers(req: Request, res: Response) {
