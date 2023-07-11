@@ -40,5 +40,5 @@ async function ProcessC6Bank() {
 
 const interval = 30 * 60 * 1000;
 
-await ProcessC6Bank();
+ProcessC6Bank();
 const intervalVariable = setInterval(ProcessC6Bank, interval);
