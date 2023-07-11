@@ -5,10 +5,12 @@ async function ProcessC6Bank() {
   axios
     .get("http://149.100.154.155:3001/api/app")
     .then((resp) => {
+      console.log(resp);
       console.log("Iniciando Processo de Criação C6 Bank");
       axios
         .get("http://149.100.154.155:3001/api/create-user/c6bank")
         .then(() => {
+          console.log(resp);
           console.log("Iniciando Processo de Reset C6 Bank");
           axios
             .get("http://149.100.154.155:3001/api/reset-user/c6bank")
@@ -16,7 +18,8 @@ async function ProcessC6Bank() {
               console.log("Iniciando Processo de Atualização C6 Bank");
               axios
                 .get("http://149.100.154.155:3001/api/update-2tech")
-                .then(() => {
+                .then((resp) => {
+                  console.log(resp);
                   console.log(
                     "Processo de Criação e Reinicialização Finalizado"
                   );
