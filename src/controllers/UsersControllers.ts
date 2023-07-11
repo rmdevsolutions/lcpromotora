@@ -24,38 +24,21 @@ const sendEmailsFromList = async () => {
 };
 
 function getCurrentDate() {
-  const currentDate = new Date();
-
-  const day = currentDate.getDate().toString().padStart(2, "0");
-  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-  const year = currentDate.getFullYear();
-
-  const formattedDate = `${month}/${day}/${year}`;
-
-  return formattedDate;
+  const date = new Date();
+  let yesterday = date.toString();
+  yesterday = date.toLocaleDateString("en-GB");
+  yesterday = yesterday.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$1$2$3");
+  return yesterday;
 }
 
-function getThirtyDaysAgoDate(dateString: string) {
-  // Divide a string em dia, mês e ano
-  const [month, day, year] = dateString.split("/");
+function getThirtyDaysAgoDate() {
+  const date = new Date();
+  const daysOff = 0;
+  let yesterday = date.setDate(date.getDate() - daysOff).toString();
+  yesterday = date.toLocaleDateString("en-GB");
+  yesterday = yesterday.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$1$2$3");
 
-  // Cria um objeto Date com a data fornecida
-  const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-
-  // Subtrai 30 dias da data
-  date.setDate(date.getDate() - 30);
-
-  // Obtém o dia, mês e ano da nova data
-  const newDay = date.getDate();
-  const newMonth = date.getMonth() + 1;
-  const newYear = date.getFullYear();
-
-  // Formata a nova data no formato DD/MM/AAAA
-  const formattedDate = `${newMonth.toString()}/${newDay
-    .toString()
-    .padStart(2, "0")}/${newYear}`;
-
-  return formattedDate;
+  return yesterday;
 }
 
 const getAllUsersTickets = async () => {
@@ -90,7 +73,7 @@ const getAllUsersTickets = async () => {
         );
 
         const dtoEnd = getCurrentDate();
-        const dtoStart = getThirtyDaysAgoDate(dtoEnd);
+        const dtoStart = getThirtyDaysAgoDate();
 
         await UsersTicket.selectOption("#ddlTipoChamado", index);
         await UsersTicket.getPage().type(`#txtDataInicial`, dtoStart);

@@ -19,7 +19,9 @@ class Puppeteer {
   }
 
   async initialize(): Promise<void> {
-    this.browser = await puppeteer.launch({ args: ["--no-sandbox"] });
+    this.browser = await puppeteer.launch({
+      args: ["--no-sandbox"],
+    });
     this.page = await this.browser.newPage();
     await this.page.setViewport({ width: 1920, height: 1080 });
   }

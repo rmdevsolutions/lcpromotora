@@ -168,7 +168,7 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
           );
           await C6Bank.getPage().type(
             `#ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_txtNomeUsu_CAMPO`,
-            row.SYS_CLIENT?.split("-")?.pop()?.trim()
+            row.SYS_CLIENT?.trim()
           );
 
           await C6Bank.getPage().type(
