@@ -119,7 +119,10 @@ const getAllUsersTickets = async () => {
           selectorLengthTable
         );
 
+        console.log("Quantidade de Registros: ", tableJSON.length);
+
         for (const column of tableJSON) {
+          console.log("Cliente: ", column.col5);
           if (column.col1 !== undefined) {
             const linkVizalization = `https://app1.gerencialcredito.com.br/lcpromotora/Chamado_usuario_editar_new.asp?ChamadoID=${column.col1}`;
             await UsersTicket.navigate(linkVizalization);
@@ -159,6 +162,7 @@ const getAllUsersTickets = async () => {
       }
     }
 
+    console.log("Finalizado Coleta de Dados");
     await UsersTicket.close();
     return payloadCreateUser;
   } catch (error: any) {
@@ -178,6 +182,7 @@ async function insertInformationThowTechRequest(req: Request, res: Response) {
 }
 
 async function insertInformationThowTech(): Promise<void | []> {
+  console.log("Iniciado processo de Atualização");
   const UsersTicket = new Puppeteer();
   await UsersTicket.initialize();
 
@@ -239,6 +244,7 @@ async function insertInformationThowTech(): Promise<void | []> {
     throw Error(error);
   }
 
+  console.log("Finalizado processo de Atualização");
   await UsersTicket.close();
 }
 
@@ -304,7 +310,7 @@ async function persistUserAndPassword(
   return response;
 }
 
-export default {
+export {
   postCustomer,
   getUsers,
   getAllTicketsForNewUsers,

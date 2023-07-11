@@ -2,9 +2,10 @@
     "name": "webapi",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "server.ts",
     "scripts": {
         "dev": "npx nodemon src/server.ts -e ts",
+        "test": "npx nodemon src/servicos/app.ts -e ts",
         "compile": "npx tsc",
         "start": "node ./dist/server.js",
         "initcron": "node src/cronJob.ts -e ts"

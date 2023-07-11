@@ -81,6 +81,7 @@ async function createUserC6BankRequest(req: Request, res: Response) {
 }
 
 async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
+  console.log("Iniciado processo de Criação");
   const UsersTicketZero = await service.getAllStatusZero(
     "NOVO USUÁRIO - C6 BANK",
     "NOVO"
@@ -283,6 +284,7 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
     throw new Error(error);
   }
 
+  console.log("Finalizado processo de Criação");
   await C6Bank.close();
   return outputResult;
 }
@@ -373,6 +375,7 @@ async function resetUserC6BankRequest(req: Request, res: Response) {
 }
 
 async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
+  console.log("Iniciado processo de Reinicialização");
   const UsersTicketZero = await service.getAllStatusZero(
     "REINICIALIZAÇÃO - C6 BANK",
     "NOVO"
@@ -483,6 +486,7 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
     }
   }
 
+  console.log("Finalizado processo de Reinicialização");
   await C6Bank.close();
   return outputResult;
 }
@@ -502,7 +506,7 @@ async function persistUserAndPassword(
   return response;
 }
 
-export default {
+export {
   createUserC6BankRequest,
   resetUserC6BankRequest,
   resetUserC6Bank,

@@ -1,6 +1,6 @@
 const cron = require("node-cron");
-import UsersController from "./controllers/UsersControllers";
-import CreateUsersController from "./controllers/CreateUsersControllers";
+import * as UsersController from "./controllers/UsersControllers";
+import * as CreateUsersController from "./controllers/CreateUsersControllers";
 
 async function initCronFunction() {
   try {
