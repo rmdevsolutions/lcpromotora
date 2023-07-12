@@ -277,7 +277,6 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
         }
       } catch (error: any) {
         logger.error(error);
-        throw new Error(error);
       }
     } else {
       AuthCreate.created = false;
@@ -285,7 +284,6 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
   } catch (error: any) {
     // await C6Bank.close();
     logger.error(error);
-    throw new Error(error);
   }
 
   logger.info("Finalizado processo de Criação");
@@ -371,6 +369,7 @@ async function resetAndGetInformation(C6Bank: Puppeteer) {
     }
   } catch (error) {
     logger.error(error);
+    AuthCreate.messageDialog = ["Usuário não localizado."];
     AuthCreate.created = false;
   }
 }
@@ -424,64 +423,74 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
 
         await C6Bank.getPage().click(`#btnPesquisar_txt`);
 
-        await C6Bank.getPage().waitForFunction(
-          (cssSelector) => {
-            const resultSearch =
-              document.querySelector(cssSelector).textContent;
-            return resultSearch !== "Nenhum Usuário para visualização.";
-          },
-          { timeout: 10000 },
-          `#ctl00_Cph_FIJN1_jnGridManutencao_UcGridManUsu_gdvUsuarios > tbody > tr:nth-child(2) > td`
-        );
+        try {
+          await C6Bank.getPage().waitForFunction(
+            (cssSelector) => {
+              const resultSearch =
+                document.querySelector(cssSelector).textContent;
+              return resultSearch !== "Nenhum Usuário para visualização.";
+            },
+            { timeout: 10000 },
+            `#ctl00_Cph_FIJN1_jnGridManutencao_UcGridManUsu_gdvUsuarios > tbody > tr:nth-child(2) > td`
+          );
 
-        const statusUserSelector = `#ctl00_Cph_FIJN1_jnGridManutencao_UcGridManUsu_gdvUsuarios  a`;
+          const statusUserSelector = `#ctl00_Cph_FIJN1_jnGridManutencao_UcGridManUsu_gdvUsuarios  a`;
 
-        const optionsTagA = await C6Bank.getPage().$$(statusUserSelector);
-        const statusUser = await optionsTagA[1].evaluate(
-          (el) => el.textContent
-        );
+          const optionsTagA = await C6Bank.getPage().$$(statusUserSelector);
+          const statusUser = await optionsTagA[1].evaluate(
+            (el) => el.textContent
+          );
 
-        if (statusUser !== "Inativar") {
-          logger.info("entrou no reset reativando");
-          await optionsTagA[1].evaluate((el) => el.click());
+          if (statusUser !== "Inativar") {
+            logger.info("entrou no reset reativando");
+            await optionsTagA[1].evaluate((el) => el.click());
 
-          await new Promise((resolve) => setTimeout(resolve, 500));
+            await new Promise((resolve) => setTimeout(resolve, 500));
 
-          const selectorStats = `select[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$cmbStatus$CAMPO"]`;
-          await C6Bank.getPage().waitForSelector(selectorStats);
-          await C6Bank.getPage().select(selectorStats, "Ativo");
+            const selectorStats = `select[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$cmbStatus$CAMPO"]`;
+            await C6Bank.getPage().waitForSelector(selectorStats);
+            await C6Bank.getPage().select(selectorStats, "Ativo");
 
-          await new Promise((resolve) => setTimeout(resolve, 500));
-          await C6Bank.getPage().click(`#btnConfirmar_txt`);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            await C6Bank.getPage().click(`#btnConfirmar_txt`);
 
-          try {
-            const framePopConfirm = await waitFrameAndGetInformation(
-              "ctl00_Cph_popConfirmacao_frameAjuda",
-              C6Bank
-            );
+            try {
+              const framePopConfirm = await waitFrameAndGetInformation(
+                "ctl00_Cph_popConfirmacao_frameAjuda",
+                C6Bank
+              );
 
-            if (framePopConfirm !== null) {
-              logger.info("modo frame localizado");
-              await new Promise((resolve) => setTimeout(resolve, 500));
-              await framePopConfirm.waitForSelector(`#btnVoltar_txt`);
-              await framePopConfirm.click(`#btnVoltar_txt`);
+              if (framePopConfirm !== null) {
+                logger.info("modo frame localizado");
+                await new Promise((resolve) => setTimeout(resolve, 500));
+                await framePopConfirm.waitForSelector(`#btnVoltar_txt`);
+                await framePopConfirm.click(`#btnVoltar_txt`);
+              }
+
+              await C6Bank.getPage().waitForSelector(`#btnPesquisar_txt`);
+              await C6Bank.getPage().click(`#btnPesquisar_txt`);
+
+              await resetAndGetInformation(C6Bank);
+              const result: IUsersTicketsOutput = await persistUserAndPassword(
+                row,
+                AuthCreate
+              );
+              outputResult.push(result);
+            } catch (ex) {
+              logger.error(ex);
             }
-
-            await C6Bank.getPage().waitForSelector(`#btnPesquisar_txt`);
-            await C6Bank.getPage().click(`#btnPesquisar_txt`);
-
+          } else {
+            logger.info("Entrou no reset sem ativar");
             await resetAndGetInformation(C6Bank);
             const result: IUsersTicketsOutput = await persistUserAndPassword(
               row,
               AuthCreate
             );
             outputResult.push(result);
-          } catch (ex) {
-            logger.error(ex);
           }
-        } else {
-          logger.info("Entrou no reset sem ativar");
-          await resetAndGetInformation(C6Bank);
+        } catch (error) {
+          AuthCreate.messageDialog = ["Usuário não localizado"];
+          AuthCreate.created = false;
           const result: IUsersTicketsOutput = await persistUserAndPassword(
             row,
             AuthCreate
@@ -490,7 +499,6 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
         }
       } catch (error: any) {
         logger.error(error);
-        throw new Error(error);
       }
     }
   }

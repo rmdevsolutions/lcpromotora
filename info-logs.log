@@ -1,1 +1,5 @@
 {"level":"info","message":"Autenticado!","timestamp":"2023-07-11T19:02:24.024Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-12T23:13:11.507Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-12T23:13:29.544Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-12T23:28:43.042Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-12T23:29:02.737Z"}

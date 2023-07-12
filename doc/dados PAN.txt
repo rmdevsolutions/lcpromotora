@@ -1,0 +1,59 @@
+CPF: input[placeholder="Digite seu CPF"]
+Parceiro: #form-partner-value
+
+
+Entrar: #formulario > app-login-form  mahoe-button > button
+
+
+Senha: input[placeholder="Digite sua senha"]
+
+Token: input[name="jnlValToken$ctl00$txtToken$CAMPO"]
+Confirmar Token: #btnConfirmar_txt
+
+PROPOSTA: #content > div > div > div:nth-child(1) > div > div:nth-child(1) > div
+
+CADASTRO DE OPERAÇÕES: #content > div > div > div:nth-child(1) > div > div:nth-child(1) > div > div.content-frame > div.fechado.naoClicavel > div:nth-child(1) > a
+
+cadastro: #navbar-collapse-funcao > ul > li > a
+
+MANUTENÇÃO DE USUARIO: #WFP2010_MPMNUSUAUT (https://panconsig.pansolucoes.com.br/WebAutorizador/MenuWeb/Cadastro/ManutencaoUsuarios/UI.CD.ManutencaoUsuarios.aspx)
+
+.Loading: #ctl00_UpdPrs (aguardar ser hidden )
+
+CPF: input[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$txtCpf$CAMPO"]
+
+Name: input[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$txtNomeUsu$CAMPO"]
+
+Email: input[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$txtEmail$CAMPO"]
+
+Nascimento: input[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$txtDtNasc$CAMPO"]
+
+CEP: input[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$txtCep$CAMPO"]
+
+endereço: input[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$txtEnd$CAMPO"]
+
+numero: input[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$txtNro$CAMPO"]
+
+DDD: input[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$txtDDDTelRec$CAMPO"]
+
+Telefone: input[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$txtTelRec$CAMPO"]
+
+Mãe: input[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$txtMae$CAMPO"]
+
+Perfil de Acesso: #ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_cmbGrupoAcesso1_CAMPO -> 48692
+
+Promotora: #ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_cmbOrigem3_CAMPO -> 007822
+
+Regime de Contratação: #ctl00_Cph_FIJN1_jnVincEmp_ucVincEmp_cmbRegContratacao_CAMPO -> 4
+
+UPLOAD DOC: #ctl00_Cph_FIJN1_jnVincEmp_ucVincEmp_upFile (#btnUploadArquivo_txt)
+
+DOC IDENTIFICAÇÃO: #ctl00_Cph_FIJN1_jnVincEmp_ucVincEmp_cmbTipoDocIdentificacao_CAMPO -> 1 - RG | 2 - CNH
+
+UPLOAD DOC: #ctl00_Cph_FIJN1_jnVincEmp_ucVincEmp_upFileDocIdent (#btnUploadArqDocIdent_txt)
+
+
+BTN CONFIRMAR: #btnConfirmar_txt
+
+
+
