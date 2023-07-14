@@ -22,7 +22,7 @@ class Puppeteer {
     this.browser = await puppeteer.launch({
       args: ["--no-sandbox"],
       protocolTimeout: 0,
-      headless: "new",
+      headless: false,
     });
     this.page = await this.browser.newPage();
     await this.page.setViewport({ width: 1920, height: 1080 });

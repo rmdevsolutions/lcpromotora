@@ -8,3 +8,95 @@
 {"level":"info","message":"Iniciado processo de Criação","timestamp":"2023-07-12T23:32:16.393Z"}
 {"level":"info","message":"Iniciado processo de Atualização","timestamp":"2023-07-12T23:32:40.733Z"}
 {"level":"info","message":"Finalizado processo de Atualização","timestamp":"2023-07-12T23:32:49.784Z"}
+{"level":"info","message":"Iniciado processo de Atualização","timestamp":"2023-07-13T19:46:09.094Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-13T19:46:12.968Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-13T19:46:18.787Z"}
+{"level":"info","message":"Iniciado processo de Criação","timestamp":"2023-07-13T19:46:22.762Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-13T19:46:27.934Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-13T19:50:06.020Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-13T19:50:13.110Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-13T19:50:20.460Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-13T19:51:02.058Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-13T19:51:08.440Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-13T19:51:15.347Z"}
+{"level":"info","message":"Autenticado!","timestamp":"2023-07-13T19:52:42.066Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-13T19:53:16.345Z"}
+{"level":"info","message":"Autenticado!","timestamp":"2023-07-13T19:54:12.956Z"}
+{"level":"info","message":"primeiro estágio","timestamp":"2023-07-13T19:54:40.097Z"}
+{"level":"info","message":"Quantidade de Registros: 40","timestamp":"2023-07-13T19:54:40.183Z"}
+{"level":"info","message":"Cliente: undefined","timestamp":"2023-07-13T19:54:40.183Z"}
+{"level":"info","message":"Cliente: 726 - ACESSOS INTERNOS","timestamp":"2023-07-13T19:54:40.184Z"}
+{"level":"info","message":"Cliente: 1784 - ALLAN JEAN OLIVEIRA SERRA - MARANHAO CRED","timestamp":"2023-07-13T19:54:43.792Z"}
+{"level":"info","message":"Cliente: 1784 - ALLAN JEAN OLIVEIRA SERRA - MARANHAO CRED","timestamp":"2023-07-13T19:54:46.998Z"}
+{"level":"info","message":"Cliente: 1784 - ALLAN JEAN OLIVEIRA SERRA - MARANHAO CRED","timestamp":"2023-07-13T19:54:50.103Z"}
+{"level":"info","message":"Cliente: 864 - ANTONIO CARLOS AMARAL LINS","timestamp":"2023-07-13T19:54:53.440Z"}
+{"level":"info","message":"Cliente: 864 - ANTONIO CARLOS AMARAL LINS","timestamp":"2023-07-13T19:54:57.432Z"}
+{"level":"info","message":"Cliente: 1784 - ALLAN JEAN OLIVEIRA SERRA - MARANHAO CRED","timestamp":"2023-07-13T19:55:00.537Z"}
+{"level":"info","message":"Cliente: 1784 - ALLAN JEAN OLIVEIRA SERRA - MARANHAO CRED","timestamp":"2023-07-13T19:55:03.547Z"}
+{"level":"info","message":"Cliente: 795 - FERNANDO SANTANA COSTA FILHO - BOMSUCESSO PROMOTORA","timestamp":"2023-07-13T19:55:06.583Z"}
+{"level":"info","message":"Cliente: 671 - YARA MARCELA PINTO GOULART - YARA EMPRESTIMOS","timestamp":"2023-07-13T19:55:09.583Z"}
+{"level":"info","message":"Cliente: 795 - FERNANDO SANTANA COSTA FILHO - BOMSUCESSO PROMOTORA","timestamp":"2023-07-13T19:55:12.517Z"}
+{"level":"info","message":"Cliente: 1870 - TAMILYS RANIELE PEREIRA DA SILVA - AITCRED","timestamp":"2023-07-13T19:55:15.518Z"}
+{"level":"info","message":"Cliente: 1807 - KATIA REGINA PEREIRA DA CUNHA - SIM CREDITOS","timestamp":"2023-07-13T19:55:18.517Z"}
+{"level":"info","message":"Cliente: 1807 - KATIA REGINA PEREIRA DA CUNHA - SIM CREDITOS","timestamp":"2023-07-13T19:55:21.457Z"}
+{"level":"info","message":"Cliente: 1807 - KATIA REGINA PEREIRA DA CUNHA - SIM CREDITOS","timestamp":"2023-07-13T19:55:24.524Z"}
+{"level":"info","message":"Cliente: 2 - DEBORA CRISTINA QUINTINO DIAS - BALCÃO SLZ","timestamp":"2023-07-13T19:55:27.627Z"}
+{"level":"info","message":"Cliente: 1668 - LIDIANE SILVA COLINS COSTA - PROSPECT SLZ","timestamp":"2023-07-13T19:55:30.958Z"}
+{"level":"info","message":"Cliente: 1590 - TATIANA DOS SANTOS COSTA","timestamp":"2023-07-13T19:55:34.106Z"}
+{"level":"info","message":"Cliente: 1784 - ALLAN JEAN OLIVEIRA SERRA - MARANHAO CRED","timestamp":"2023-07-13T19:55:37.115Z"}
+{"level":"info","message":"Cliente: 671 - YARA MARCELA PINTO GOULART - YARA EMPRESTIMOS","timestamp":"2023-07-13T19:55:40.115Z"}
+{"level":"info","message":"Cliente: 671 - YARA MARCELA PINTO GOULART - YARA EMPRESTIMOS","timestamp":"2023-07-13T19:55:43.045Z"}
+{"level":"info","message":"Cliente: 671 - YARA MARCELA PINTO GOULART - YARA EMPRESTIMOS","timestamp":"2023-07-13T19:55:46.199Z"}
+{"level":"info","message":"Cliente: 297 - JOAO DE DEUS BATISTA DE SOUSA - MEARIM CRED -","timestamp":"2023-07-13T19:55:49.116Z"}
+{"level":"info","message":"Cliente: 297 - JOAO DE DEUS BATISTA DE SOUSA - MEARIM CRED -","timestamp":"2023-07-13T19:55:52.017Z"}
+{"level":"info","message":"Cliente: 297 - JOAO DE DEUS BATISTA DE SOUSA - MEARIM CRED -","timestamp":"2023-07-13T19:55:55.058Z"}
+{"level":"info","message":"Cliente: 297 - JOAO DE DEUS BATISTA DE SOUSA - MEARIM CRED -","timestamp":"2023-07-13T19:55:58.392Z"}
+{"level":"info","message":"Cliente: 425 - MARCILENE SOUZA SILVA - ARARI CREDITO","timestamp":"2023-07-13T19:56:01.645Z"}
+{"level":"info","message":"Cliente: 425 - MARCILENE SOUZA SILVA - ARARI CREDITO","timestamp":"2023-07-13T19:56:05.432Z"}
+{"level":"info","message":"Cliente: 1599 - PAULA ANGELICA MOTA DA SILVA","timestamp":"2023-07-13T19:56:08.623Z"}
+{"level":"info","message":"Cliente: 705 - JESSICA HALANA ALENCAR SILVA MOURA - ALENCAR PROMOTORA","timestamp":"2023-07-13T19:56:11.646Z"}
+{"level":"info","message":"Cliente: 1568 - KLEDSON VITORIO REIS MADEIRA","timestamp":"2023-07-13T19:56:14.500Z"}
+{"level":"info","message":"Cliente: 1728 - ANA PAULA CARDOSO 60218119330 - MJP PROMOTORA DE CREDITO","timestamp":"2023-07-13T19:56:17.556Z"}
+{"level":"info","message":"Cliente: 677 - LUCIANA PEREIRA DE OLIVEIRA DOS SANTOS - LUCIANA EMPRESTIMOS","timestamp":"2023-07-13T19:56:20.513Z"}
+{"level":"info","message":"Cliente: 677 - LUCIANA PEREIRA DE OLIVEIRA DOS SANTOS - LUCIANA EMPRESTIMOS","timestamp":"2023-07-13T19:56:23.849Z"}
+{"level":"info","message":"Cliente: 782 - CLEOCIARA PEREIRA DE JESUS - CAPITAL CRED","timestamp":"2023-07-13T19:56:26.700Z"}
+{"level":"info","message":"Cliente: 677 - LUCIANA PEREIRA DE OLIVEIRA DOS SANTOS - LUCIANA EMPRESTIMOS","timestamp":"2023-07-13T19:56:29.797Z"}
+{"level":"info","message":"Cliente: 1736 - CASSIO HENRIQUE DE SOUSA MESQUITA - SOLUÇÃO CONSIGNADO","timestamp":"2023-07-13T19:56:32.985Z"}
+{"level":"info","message":"Cliente: 895 - ARIHOSTO OLIVEIRA GOMES","timestamp":"2023-07-13T19:56:36.484Z"}
+{"level":"info","message":"Cliente: 800 - STENIO DOS SANTOS SILVA","timestamp":"2023-07-13T19:56:39.885Z"}
+{"level":"info","message":"primeiro estágio","timestamp":"2023-07-13T19:57:03.400Z"}
+{"level":"info","message":"Quantidade de Registros: 15","timestamp":"2023-07-13T19:57:03.489Z"}
+{"level":"info","message":"Cliente: undefined","timestamp":"2023-07-13T19:57:03.489Z"}
+{"level":"info","message":"Cliente: 800 - STENIO DOS SANTOS SILVA","timestamp":"2023-07-13T19:57:03.489Z"}
+{"level":"info","message":"Cliente: 782 - CLEOCIARA PEREIRA DE JESUS - CAPITAL CRED","timestamp":"2023-07-13T19:57:07.033Z"}
+{"level":"info","message":"Cliente: 782 - CLEOCIARA PEREIRA DE JESUS - CAPITAL CRED","timestamp":"2023-07-13T19:57:10.326Z"}
+{"level":"info","message":"Cliente: 1770 - ANALINA VIEIRA SIPAUBA - UNNIDAS PROMOTORA","timestamp":"2023-07-13T19:57:13.560Z"}
+{"level":"info","message":"Cliente: 992 - ELAINE RAISSA BATALHA REIS - ELO PROMOTORA","timestamp":"2023-07-13T19:57:16.623Z"}
+{"level":"info","message":"Cliente: 992 - ELAINE RAISSA BATALHA REIS - ELO PROMOTORA","timestamp":"2023-07-13T19:57:19.786Z"}
+{"level":"info","message":"Cliente: 679 - FRANCIANE CARVALHO DE SOUSA MELO - ANINHA CREDITOS","timestamp":"2023-07-13T19:57:24.145Z"}
+{"level":"info","message":"Cliente: 726 - ACESSOS INTERNOS","timestamp":"2023-07-13T19:57:26.971Z"}
+{"level":"info","message":"Cliente: 726 - ACESSOS INTERNOS","timestamp":"2023-07-13T19:57:29.991Z"}
+{"level":"info","message":"Cliente: 679 - FRANCIANE CARVALHO DE SOUSA MELO - ANINHA CREDITOS","timestamp":"2023-07-13T19:57:33.080Z"}
+{"level":"info","message":"Cliente: 1568 - KLEDSON VITORIO REIS MADEIRA","timestamp":"2023-07-13T19:57:36.092Z"}
+{"level":"info","message":"Cliente: 1728 - ANA PAULA CARDOSO 60218119330 - MJP PROMOTORA DE CREDITO","timestamp":"2023-07-13T19:57:39.240Z"}
+{"level":"info","message":"Cliente: 677 - LUCIANA PEREIRA DE OLIVEIRA DOS SANTOS - LUCIANA EMPRESTIMOS","timestamp":"2023-07-13T19:57:42.458Z"}
+{"level":"info","message":"Cliente: 677 - LUCIANA PEREIRA DE OLIVEIRA DOS SANTOS - LUCIANA EMPRESTIMOS","timestamp":"2023-07-13T19:57:45.564Z"}
+{"level":"info","message":"Finalizado Coleta de Dados","timestamp":"2023-07-13T19:57:49.033Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-13T19:58:21.904Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-13T19:58:35.257Z"}
+{"level":"info","message":"modo frame localizado","timestamp":"2023-07-13T19:58:37.257Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-13T19:59:15.653Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-13T19:59:15.653Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-13T20:02:36.423Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-13T20:02:43.420Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-13T20:03:14.658Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-13T20:03:25.272Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-13T20:03:28.868Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-13T20:04:31.956Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-13T20:04:38.650Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-13T20:04:48.375Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-13T20:05:19.595Z"}
+{"level":"info","message":"Iniciado processo de Criação","timestamp":"2023-07-13T20:05:27.582Z"}
+{"level":"info","message":"Iniciado processo de Atualização","timestamp":"2023-07-13T20:05:33.399Z"}
+{"level":"info","message":"Finalizado processo de Atualização","timestamp":"2023-07-13T20:05:42.655Z"}
+{"level":"info","message":"Iniciado processo de Atualização","timestamp":"2023-07-13T20:06:17.707Z"}

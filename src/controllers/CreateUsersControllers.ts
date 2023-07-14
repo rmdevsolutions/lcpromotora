@@ -59,7 +59,8 @@ async function authLoginC6Bank(C6Bank: Puppeteer) {
     await C6Bank.navigate(
       "https://c6.c6consig.com.br/WebAutorizador/Login/AC.UI.LOGIN.aspx"
     );
-
+    //04517654354_000128
+    //?gQ5GzJj
     const AuthInformation = {
       btnSelector: "#lnkEntrar",
       usrSelector: "#EUsuario_CAMPO",
@@ -363,6 +364,57 @@ async function resetAndGetInformation(C6Bank: Puppeteer) {
 
       AuthCreate.pwd = await frame.$eval(newPasswordSelector, (el) => el.value);
 
+      const C6BankReset = new Puppeteer();
+      await C6BankReset.initialize();
+      try {
+        await C6BankReset.getPage().on("dialog", async (dialog) => {
+          const msgUserConected = `Usuário já autenticado em outra estação. Deseja desconectar-se da estação e conectar-se através desta?`;
+          if (dialog.message() !== msgUserConected) {
+            AuthCreate.messageDialog.push(dialog.message());
+          }
+
+          await dialog.accept();
+        });
+
+        await C6BankReset.navigate(
+          "https://c6.c6consig.com.br/WebAutorizador/Login/AC.UI.LOGIN.aspx"
+        );
+
+        const AuthInformation = {
+          btnSelector: "#lnkEntrar",
+          usrSelector: "#EUsuario_CAMPO",
+          pwdSelector: "#ESenha_CAMPO",
+          password: AuthCreate.pwd,
+          user: AuthCreate.user,
+          timeout: 60,
+        };
+
+        if (await C6BankReset.AuthClickButton(AuthInformation)) {
+          await C6BankReset.getPage().waitForSelector(`#ButtonConfirmar_txt`);
+
+          await C6BankReset.getPage().type(
+            `input[name="AltSen1$SenhaAtual$CAMPO"]`,
+            AuthCreate.pwd
+          );
+          const newPwd = AuthCreate.user?.substring(0, 6) + "Lc@2023";
+
+          await C6BankReset.getPage().type(
+            `input[name="AltSen1$NovaSenha$CAMPO"]`,
+            newPwd
+          );
+          await C6BankReset.getPage().type(
+            `input[name="AltSen1$ConfNovaSenha$CAMPO"]`,
+            newPwd
+          );
+          await C6BankReset.getPage().click(`#ButtonConfirmar_txt`);
+          await C6BankReset.close();
+          AuthCreate.pwd = newPwd;
+        }
+      } catch (error) {
+        await C6BankReset.close();
+        logger.error(error);
+      }
+
       AuthCreate.created = true;
     } else {
       AuthCreate.created = false;
@@ -508,10 +560,72 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
   return outputResult;
 }
 
+async function alterPasswordBeforeResetAndCreated(
+  data: IAuthCreate
+): Promise<IAuthCreate> {
+  logger.info("Iniciado processo de Criação");
+
+  const C6Bank = new Puppeteer();
+  await C6Bank.initialize();
+
+  await C6Bank.getPage().on("dialog", async (dialog) => {
+    const msgUserConected = `Usuário já autenticado em outra estação. Deseja desconectar-se da estação e conectar-se através desta?`;
+    if (dialog.message() !== msgUserConected) {
+      AuthCreate.messageDialog.push(dialog.message());
+    }
+
+    await dialog.accept();
+  });
+
+  try {
+    await C6Bank.navigate(
+      "https://c6.c6consig.com.br/WebAutorizador/Login/AC.UI.LOGIN.aspx"
+    );
+
+    const AuthInformation = {
+      btnSelector: "#lnkEntrar",
+      usrSelector: "#EUsuario_CAMPO",
+      pwdSelector: "#ESenha_CAMPO",
+      password: data.pwd,
+      user: data.user,
+      timeout: 60,
+    };
+
+    if (await C6Bank.AuthClickButton(AuthInformation)) {
+      await C6Bank.getPage().waitForSelector(`#ButtonConfirmar_txt`);
+
+      await C6Bank.getPage().type(
+        `input[name="AltSen1$SenhaAtual$CAMPO"]`,
+        data.pwd
+      );
+      const newPwd = data.pwd?.substring(0, 6) + "Lc@2023";
+
+      await C6Bank.getPage().type(
+        `input[name="AltSen1$NovaSenha$CAMPO"]`,
+        newPwd
+      );
+      await C6Bank.getPage().type(
+        `input[name="AltSen1$ConfNovaSenha$CAMPO"]`,
+        newPwd
+      );
+      await C6Bank.getPage().click(`#ButtonConfirmar_txt`);
+      data.pwd = newPwd;
+
+      return data;
+    } else {
+      return data;
+    }
+  } catch (error) {
+    logger.error(error);
+    return data;
+  }
+}
+
 async function persistUserAndPassword(
   row: IUsersTickets,
   data: IAuthCreate
 ): Promise<IUsersTicketsOutput> {
+  // const newData = await alterPasswordBeforeResetAndCreated(data);
   const payloadItem: IUsersTickets = {
     ...row,
     USERNAME: data.user,
