@@ -12,7 +12,7 @@ async function executeInCicle() {
   await resetUserC6Bank();
   await insertInformationThowTech();
 
-  setTimeout(executeInCicle, 10 * 60 * 1000);
+  // setTimeout(executeInCicle, 10 * 60 * 1000);
 }
 
 executeInCicle();
