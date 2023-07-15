@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "npx nodemon src/server.ts -e ts",
         "test": "npx nodemon src/servicos/app.ts -e ts",
+        "execute": "npx ts-node src/servicos/app.ts -e ts",
         "compile": "npx tsc",
         "start": "node ./dist/server.js",
         "initcron": "node src/cronJob.ts -e ts"
