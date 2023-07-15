@@ -33,7 +33,7 @@ function getCurrentDate() {
 
 function getThirtyDaysAgoDate() {
   const date = new Date();
-  const daysOff = 0;
+  const daysOff = 1;
   let yesterday = date.setDate(date.getDate() - daysOff).toString();
   yesterday = date.toLocaleDateString("en-GB");
   yesterday = yesterday.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2$1$3");

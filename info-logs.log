@@ -216,3 +216,6 @@
 {"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-15T20:04:24.572Z"}
 {"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-15T20:04:35.540Z"}
 {"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-15T20:04:49.454Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-15T20:08:00.410Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-15T20:08:10.542Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-15T20:08:24.267Z"}
