@@ -402,6 +402,7 @@ async function resetAndGetInformation(C6Bank: Puppeteer) {
           await C6BankReset.getPage().click(`#ButtonConfirmar_txt`);
           await C6BankReset.close();
           AuthCreate.pwd = newPwd;
+          AuthCreate.created = true;
         }
       } catch (error) {
         await C6BankReset.close();
@@ -651,7 +652,10 @@ async function persistUserAndPassword(
     USERNAME: data.user,
     PASSWORD: data.pwd,
     INFORMATIONS: data.messageDialog[0],
-    STATUS: data.created ? "finalizado com sucesso" : "finalizado sem sucesso",
+    STATUS:
+      data.pwd !== null && data.pwd !== ""
+        ? "finalizado com sucesso"
+        : "finalizado sem sucesso",
   };
   const response = await service.update(row.SYS_ID, payloadItem);
   return response;
