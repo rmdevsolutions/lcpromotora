@@ -1,4 +1,3 @@
-import { html, load } from "cheerio";
 import { Request, Response, NextFunction } from "express";
 import Puppeteer from "../models/Puppeteer";
 import * as service from "../services/UsersTickets";
@@ -69,96 +68,100 @@ const getAllUsersTickets = async () => {
       logger.info("Autenticado!");
 
       for (const index of TypesOfSearch) {
-        await UsersTicket.navigate(
-          "https://app1.gerencialcredito.com.br/lcpromotora/Esteira_Chamado_Usuario.asp"
-        );
+        try {
+          await UsersTicket.navigate(
+            "https://app1.gerencialcredito.com.br/lcpromotora/Esteira_Chamado_Usuario.asp"
+          );
 
-        const dtoEnd = getCurrentDate();
-        const dtoStart = getThirtyDaysAgoDate();
+          const dtoEnd = getCurrentDate();
+          const dtoStart = getThirtyDaysAgoDate();
 
-        await UsersTicket.selectOption("#ddlTipoChamado", index);
-        await UsersTicket.getPage().type(`#txtDataInicial`, dtoStart);
-        await UsersTicket.getPage().type(`#txtDataFinal`, dtoEnd);
-        // await UsersTicket.selectOption("#status", "16");
-        // await UsersTicket.selectOption("#servico", "19");
-        await UsersTicket.getPage().click("#chkFinalizado");
-        await UsersTicket.getPage().click(
-          "#filtroChamado > div > div.card-body > div:nth-child(4) > div.col-md-1 > button"
-        );
+          await UsersTicket.selectOption("#ddlTipoChamado", index);
+          await UsersTicket.getPage().type(`#txtDataInicial`, dtoStart);
+          await UsersTicket.getPage().type(`#txtDataFinal`, dtoEnd);
+          // await UsersTicket.selectOption("#status", "16");
+          // await UsersTicket.selectOption("#servico", "19");
+          await UsersTicket.getPage().click("#chkFinalizado");
+          await UsersTicket.getPage().click(
+            "#filtroChamado > div > div.card-body > div:nth-child(4) > div.col-md-1 > button"
+          );
 
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        await UsersTicket.getPage().waitForSelector(".loadingoverlay", {
-          hidden: true,
-        });
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          await UsersTicket.getPage().waitForSelector(".loadingoverlay", {
+            hidden: true,
+          });
 
-        // var screenshotBuffer = await UsersTicket.getPage().screenshot();
-        // return screenshotBuffer;
+          // var screenshotBuffer = await UsersTicket.getPage().screenshot();
+          // return screenshotBuffer;
 
-        const selectorTableName = tablesIds[parseInt(index) - 1].replace(
-          "#",
-          ""
-        );
-        const selectorTable = tablesIds[parseInt(index) - 1];
+          const selectorTableName = tablesIds[parseInt(index) - 1].replace(
+            "#",
+            ""
+          );
+          const selectorTable = tablesIds[parseInt(index) - 1];
 
-        await UsersTicket.getPage().waitForSelector(selectorTable);
+          await UsersTicket.getPage().waitForSelector(selectorTable);
 
-        const selectorLengthTable = `select[name="${selectorTableName}_length"]`;
+          const selectorLengthTable = `select[name="${selectorTableName}_length"]`;
 
-        logger.info("primeiro estágio");
-        let tableJSON: Record<string, string>[];
+          logger.info("primeiro estágio");
+          let tableJSON: Record<string, string>[];
 
-        await UsersTicket.getPage().$eval(
-          `${selectorLengthTable} option:last-child`,
-          (option) => {
-            option.value = "1000000";
+          await UsersTicket.getPage().$eval(
+            `${selectorLengthTable} option:last-child`,
+            (option) => {
+              option.value = "1000000";
+            }
+          );
+
+          tableJSON = await UsersTicket.extractTable(
+            selectorTable,
+            "1000000",
+            selectorLengthTable
+          );
+
+          logger.info(`Quantidade de Registros: ${tableJSON.length}`);
+
+          for (const column of tableJSON) {
+            logger.info(`Cliente: ${column.col5}`);
+            if (column.col1 !== undefined) {
+              const linkVizalization = `https://app1.gerencialcredito.com.br/lcpromotora/Chamado_usuario_editar_new.asp?ChamadoID=${column.col1}`;
+              await UsersTicket.navigate(linkVizalization);
+
+              await UsersTicket.getPage().waitForSelector("#nascimento");
+              await new Promise((resolve) => setTimeout(resolve, 2000));
+
+              const dateBorne = await UsersTicket.getPage().$eval(
+                'input[name="nascimento"]',
+                (el) => el.value
+              );
+
+              const payloadItem: IUsersTickets = {
+                SYS_ID: column.col1,
+                SYS_STATUS: column.col2,
+                SYS_SERVICE: column.col3,
+                SYS_CREATE_AT: column.col4,
+                SYS_IDENTITY: column.col8,
+                SYS_INFORMATION: column.col6,
+                SYS_CLIENT: column.col5,
+                SYS_CREATED_BY: column.col9,
+                STATUS: "0",
+                ID: null,
+                USERNAME: null,
+                PASSWORD: null,
+                INFORMATIONS: null,
+                SYS_DATE_BORN: dateBorne,
+              };
+
+              const response = await service.update(
+                payloadItem.SYS_ID,
+                payloadItem
+              );
+              payloadCreateUser.push(response);
+            }
           }
-        );
-
-        tableJSON = await UsersTicket.extractTable(
-          selectorTable,
-          "1000000",
-          selectorLengthTable
-        );
-
-        logger.info(`Quantidade de Registros: ${tableJSON.length}`);
-
-        for (const column of tableJSON) {
-          logger.info(`Cliente: ${column.col5}`);
-          if (column.col1 !== undefined) {
-            const linkVizalization = `https://app1.gerencialcredito.com.br/lcpromotora/Chamado_usuario_editar_new.asp?ChamadoID=${column.col1}`;
-            await UsersTicket.navigate(linkVizalization);
-
-            await UsersTicket.getPage().waitForSelector("#nascimento");
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-
-            const dateBorne = await UsersTicket.getPage().$eval(
-              'input[name="nascimento"]',
-              (el) => el.value
-            );
-
-            const payloadItem: IUsersTickets = {
-              SYS_ID: column.col1,
-              SYS_STATUS: column.col2,
-              SYS_SERVICE: column.col3,
-              SYS_CREATE_AT: column.col4,
-              SYS_IDENTITY: column.col8,
-              SYS_INFORMATION: column.col6,
-              SYS_CLIENT: column.col5,
-              SYS_CREATED_BY: column.col9,
-              STATUS: "0",
-              ID: null,
-              USERNAME: null,
-              PASSWORD: null,
-              INFORMATIONS: null,
-              SYS_DATE_BORN: dateBorne,
-            };
-
-            const response = await service.update(
-              payloadItem.SYS_ID,
-              payloadItem
-            );
-            payloadCreateUser.push(response);
-          }
+        } catch (error) {
+          logger.error(error);
         }
       }
     }

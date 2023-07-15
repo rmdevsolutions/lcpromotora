@@ -25,7 +25,21 @@ class Puppeteer {
       headless: "new",
     });
     this.page = await this.browser.newPage();
-    await this.page.setViewport({ width: 1920, height: 1080 });
+    // await this.page.setViewport({
+    //   width: 1920, // Largura desejada
+    //   height: 1080, // Altura desejada
+    //   deviceScaleFactor: 1,
+    // });
+  }
+
+  async say(id: string, text: string): Promise<void> {
+    // Limpar o campo de entrada
+    await this.page.click(id, { clickCount: 3 });
+    await this.page.keyboard.press("Backspace");
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    await this.page.type(id, text);
   }
 
   async navigate(url: string): Promise<void> {
@@ -57,12 +71,14 @@ class Puppeteer {
     }
   }
 
-  async AuthClickButton(selectors: IAuth): Promise<boolean> {
+  async AuthClickButton(selectors: IAuth, delay?: boolean): Promise<boolean> {
     try {
       await this.erroPage();
       await this.page.waitForSelector(selectors.usrSelector);
       await this.page.type(selectors.usrSelector, selectors.user);
       await this.page.type(selectors.pwdSelector, selectors.password);
+
+      if (delay) await new Promise((resolve) => setTimeout(resolve, 2000));
 
       await this.page.click(selectors.btnSelector);
       await this.page.waitForNavigation();

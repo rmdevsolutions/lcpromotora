@@ -100,3 +100,115 @@
 {"level":"info","message":"Iniciado processo de Atualização","timestamp":"2023-07-13T20:05:33.399Z"}
 {"level":"info","message":"Finalizado processo de Atualização","timestamp":"2023-07-13T20:05:42.655Z"}
 {"level":"info","message":"Iniciado processo de Atualização","timestamp":"2023-07-13T20:06:17.707Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T12:58:20.790Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T12:58:43.220Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T12:58:54.340Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T12:59:53.388Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T12:59:54.950Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T13:15:25.800Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T13:15:39.976Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T13:15:41.338Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T13:17:03.775Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T13:17:15.084Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T13:17:27.341Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T13:17:39.450Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T13:17:49.462Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T13:17:50.775Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T13:19:05.786Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T13:19:17.071Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T13:19:29.836Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T13:20:13.308Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T13:21:14.649Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T13:21:37.709Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T13:21:52.006Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T13:22:32.423Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T13:23:50.349Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T13:24:00.071Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T13:24:16.480Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T13:24:57.619Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T13:25:44.299Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T13:26:06.853Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T13:26:20.863Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T13:27:02.264Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T13:28:51.667Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T13:29:07.573Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T13:29:21.352Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T13:29:33.657Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T13:29:43.668Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T13:29:44.766Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T13:30:11.657Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T13:30:21.204Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T13:30:34.875Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T13:31:15.280Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T13:38:43.261Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T13:39:00.659Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T13:39:14.367Z"}
+{"level":"error","name":"SequelizeConnectionError","original":{"code":"ETIMEDOUT","errorno":"ETIMEDOUT","fatal":true,"syscall":"connect"},"parent":{"code":"ETIMEDOUT","errorno":"ETIMEDOUT","fatal":true,"syscall":"connect"},"timestamp":"2023-07-14T14:40:30.909Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T14:40:30.926Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T21:23:29.388Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T21:23:40.279Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T21:23:54.248Z"}
+{"level":"error","name":"TargetCloseError","timestamp":"2023-07-14T21:23:56.797Z"}
+{"level":"error","name":"TargetCloseError","timestamp":"2023-07-14T21:23:56.799Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T21:23:58.648Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T21:36:28.347Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T21:36:40.309Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-14T21:36:52.772Z"}
+{"level":"error","name":"TargetCloseError","timestamp":"2023-07-14T21:36:54.794Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T21:36:56.469Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T21:38:24.793Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T21:38:38.039Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-14T21:38:51.642Z"}
+{"level":"error","name":"TargetCloseError","timestamp":"2023-07-14T21:39:07.361Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T21:39:09.284Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T21:39:30.567Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-14T21:39:42.502Z"}
+{"level":"error","name":"TargetCloseError","timestamp":"2023-07-14T21:40:05.099Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T21:40:07.037Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T21:40:58.151Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T21:41:10.051Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T21:41:26.329Z"}
+{"level":"error","name":"TargetCloseError","timestamp":"2023-07-14T21:41:29.607Z"}
+{"level":"error","name":"TargetCloseError","timestamp":"2023-07-14T21:41:29.610Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T21:41:31.211Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T21:53:33.165Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T21:53:34.274Z"}
+{"level":"info","message":"entrou no reset reativando","timestamp":"2023-07-14T21:53:50.035Z"}
+{"level":"info","message":"modo frame localizado","timestamp":"2023-07-14T21:53:58.081Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T21:54:44.032Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T21:54:45.429Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T22:03:58.709Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-14T22:04:09.901Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-14T22:04:59.755Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T22:05:01.371Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T22:06:49.738Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-14T22:07:02.879Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T22:08:07.022Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T22:08:35.260Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-14T22:08:46.403Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T22:09:48.193Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T22:10:32.641Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-14T22:10:46.128Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-14T22:11:21.658Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-14T22:13:41.280Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-14T22:13:53.100Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-15T18:49:50.266Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-15T18:58:40.528Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-15T18:58:51.528Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-15T18:59:38.890Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-15T18:59:40.039Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-15T19:05:45.259Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-15T19:06:20.533Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-15T19:06:39.247Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-15T19:06:51.457Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-15T19:07:41.421Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-15T19:07:42.631Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-15T19:12:59.647Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-15T19:13:14.444Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-15T19:13:28.099Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-15T19:17:41.402Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-15T19:17:51.949Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-15T19:18:06.103Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-15T19:27:52.945Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-15T19:28:04.062Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-15T19:28:19.293Z"}
