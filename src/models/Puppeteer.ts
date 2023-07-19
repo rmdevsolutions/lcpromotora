@@ -1,4 +1,8 @@
 import puppeteer, { Browser, Page } from "puppeteer";
+import puppeteerExtra from "puppeteer-extra";
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
+
+puppeteerExtra.use(StealthPlugin());
 
 interface IAuth {
   pwdSelector: string;
@@ -19,27 +23,32 @@ class Puppeteer {
   }
 
   async initialize(): Promise<void> {
-    this.browser = await puppeteer.launch({
+    this.browser = await puppeteerExtra.launch({
       args: ["--no-sandbox"],
       protocolTimeout: 0,
       headless: "new",
+      // executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
     });
+
     this.page = await this.browser.newPage();
-    // await this.page.setViewport({
-    //   width: 1920, // Largura desejada
-    //   height: 1080, // Altura desejada
-    //   deviceScaleFactor: 1,
-    // });
+
+    await this.page.setUserAgent(
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36"
+    );
   }
 
   async say(id: string, text: string): Promise<void> {
     // Limpar o campo de entrada
-    await this.page.click(id, { clickCount: 3 });
-    await this.page.keyboard.press("Backspace");
+    try {
+      await this.page.click(id, { clickCount: 3 });
+      await this.page.keyboard.press("Backspace");
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-    await this.page.type(id, text);
+      await this.page.type(id, text);
+    } catch (error) {
+      console.log("Erro: ", error);
+    }
   }
 
   async navigate(url: string): Promise<void> {

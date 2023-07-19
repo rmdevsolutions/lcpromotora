@@ -2,6 +2,12 @@ import express from "express";
 import * as UsersController from "../controllers/UsersControllers";
 import * as CreateUsersController from "../controllers/CreateUsersControllers";
 
+import {
+  initPan,
+  insertTokenRequest,
+  createUserPanRequest,
+} from "../components/Pan";
+
 const router = express.Router();
 
 router.get("/", UsersController.postCustomer);
@@ -20,4 +26,9 @@ router.get("/reset-user/c6bank", CreateUsersController.resetUserC6BankRequest);
 
 //atualização de Usuários
 router.get("/update-2tech", UsersController.insertInformationThowTechRequest);
+
+//Criações PAN
+router.get("/pan/initializer", initPan);
+router.get("/pan/insert-token/:token?", insertTokenRequest);
+router.get("/pan/create-user", createUserPanRequest);
 export default router;

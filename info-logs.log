@@ -219,3 +219,43 @@
 {"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-15T20:08:00.410Z"}
 {"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-15T20:08:10.542Z"}
 {"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-15T20:08:24.267Z"}
+{"level":"info","message":"Iniciado processo de Criação","timestamp":"2023-07-17T18:07:18.735Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-17T18:07:46.479Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-17T18:08:06.168Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-17T18:08:25.891Z"}
+{"level":"info","message":{},"timestamp":"2023-07-17T18:08:36.557Z"}
+{"level":"error","timestamp":"2023-07-17T18:08:41.586Z"}
+{"level":"info","message":"Finalizado processo de Criação","timestamp":"2023-07-17T18:08:41.587Z"}
+{"level":"info","message":"Iniciado processo de Criação","timestamp":"2023-07-17T18:11:57.676Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-17T18:12:23.574Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-17T18:12:43.867Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-17T18:13:03.622Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-17T18:13:25.123Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-17T18:13:44.954Z"}
+{"level":"info","message":"Finalizado processo de Criação","timestamp":"2023-07-17T18:13:46.179Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-18T13:49:06.634Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-18T13:49:16.547Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-18T13:49:26.393Z"}
+{"level":"info","message":"Iniciado processo de Criação","timestamp":"2023-07-18T13:49:37.639Z"}
+{"level":"info","message":{},"timestamp":"2023-07-18T13:49:51.929Z"}
+{"level":"error","timestamp":"2023-07-18T13:49:52.674Z"}
+{"level":"info","message":"Finalizado processo de Criação","timestamp":"2023-07-18T13:49:52.675Z"}
+{"level":"info","message":"Iniciado processo de Atualização","timestamp":"2023-07-18T13:50:22.439Z"}
+{"level":"info","message":"Finalizado processo de Atualização","timestamp":"2023-07-18T13:50:29.190Z"}
+{"level":"info","message":"Iniciado processo de Reinicialização","timestamp":"2023-07-18T13:53:00.412Z"}
+{"level":"info","message":"Entrou no reset sem ativar","timestamp":"2023-07-18T13:53:06.778Z"}
+{"level":"info","message":"Finalizado processo de Reinicialização","timestamp":"2023-07-18T13:53:17.647Z"}
+{"level":"info","message":"Iniciado processo de Atualização","timestamp":"2023-07-18T13:53:53.512Z"}
+{"level":"info","message":"Finalizado processo de Atualização","timestamp":"2023-07-18T13:54:00.592Z"}
+{"level":"info","message":"Iniciado processo de Criação","timestamp":"2023-07-18T13:54:51.017Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-18T13:55:14.298Z"}
+{"level":"info","message":"Finalizado processo de Criação","timestamp":"2023-07-18T13:55:15.009Z"}
+{"level":"info","message":"Iniciado processo de Criação","timestamp":"2023-07-18T14:02:27.926Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-18T14:02:52.206Z"}
+{"level":"info","message":"Finalizado processo de Criação","timestamp":"2023-07-18T14:02:52.936Z"}
+{"level":"info","message":"Iniciado processo de Atualização","timestamp":"2023-07-18T14:03:33.888Z"}
+{"level":"info","message":"Finalizado processo de Atualização","timestamp":"2023-07-18T14:03:41.043Z"}
+{"level":"info","message":"Autenticado!","timestamp":"2023-07-18T16:45:40.199Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-18T16:46:13.371Z"}
+{"level":"error","name":"TargetCloseError","timestamp":"2023-07-18T16:46:18.070Z"}
+{"level":"info","message":"Finalizado Coleta de Dados","timestamp":"2023-07-18T16:46:18.070Z"}

@@ -12,7 +12,7 @@ interface IAuthCreate {
   user: string;
   pwd: string;
   partner: string;
-  messageDialog: string;
+  messageDialog: string[];
   created: boolean;
 }
 
@@ -20,7 +20,7 @@ let AuthCreate: IAuthCreate = {
   user: "",
   pwd: "",
   partner: "",
-  messageDialog: "",
+  messageDialog: [],
   created: false,
 };
 
@@ -28,7 +28,7 @@ async function authLoginC6Bank(C6Bank: Puppeteer) {
   await C6Bank.getPage().on("dialog", async (dialog) => {
     const msgUserConected = `Usuário já autenticado em outra estação. Deseja desconectar-se da estação e conectar-se através desta?`;
     if (dialog.message() !== msgUserConected) {
-      AuthCreate.messageDialog = dialog.message();
+      AuthCreate.messageDialog.push(dialog.message());
     }
 
     await dialog.accept();
@@ -75,7 +75,7 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
   await C6Bank.getPage().on("dialog", async (dialog) => {
     const msgUserConected = `Usuário já autenticado em outra estação. Deseja desconectar-se da estação e conectar-se através desta?`;
     if (dialog.message() !== msgUserConected) {
-      AuthCreate.messageDialog = dialog.message();
+      AuthCreate.messageDialog.push(dialog.message());
     }
 
     await dialog.accept();
@@ -119,7 +119,7 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
       try {
         for (const row of UsersTicketZero) {
           AuthCreate.created = false;
-          AuthCreate.messageDialog = null;
+          AuthCreate.messageDialog = [];
           AuthCreate.partner = null;
           AuthCreate.pwd = null;
           AuthCreate.user = null;
@@ -227,10 +227,11 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
             const newPartnerSelector = `input[name="ctl00$cph$FIJN1$jnDadosLogin$txtPromotoraPrincipal$CAMPO"]`;
             const newPasswordSelector = `input[name="ctl00$cph$FIJN1$jnDadosLogin$txtSenha$CAMPO"]`;
 
-            AuthCreate.user = await iframeContent.$eval(
+            const userInf = await iframeContent.$eval(
               newUserSelector,
               (el) => el.value
             );
+            AuthCreate.user = userInf;
 
             AuthCreate.partner = await iframeContent.$eval(
               newPartnerSelector,
@@ -241,6 +242,78 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
               newPasswordSelector,
               (el) => el.value
             );
+
+            const pwdInf = await iframeContent.$eval(
+              newPasswordSelector,
+              (el) => el.value
+            );
+
+            AuthCreate.pwd = pwdInf;
+
+            // const C6BankReset = new Puppeteer();
+            // await C6BankReset.initialize();
+            // try {
+            //   await C6BankReset.getPage().on("dialog", async (dialog) => {
+            //     const msgUserConected = `Usuário já autenticado em outra estação. Deseja desconectar-se da estação e conectar-se através desta?`;
+            //     if (dialog.message() !== msgUserConected) {
+            //       AuthCreate.messageDialog.push(dialog.message());
+            //     }
+
+            //     await dialog.accept();
+            //   });
+
+            //   await C6BankReset.navigate(
+            //     "https://c6.c6consig.com.br/WebAcesso/Login/AC.UI.LOGIN.aspx"
+            //   );
+
+            //   const AuthInformation = {
+            //     btnSelector: "#lnkEntrar",
+            //     usrSelector: "#EUsuario_CAMPO",
+            //     pwdSelector: "#ESenha_CAMPO",
+            //     password: pwdInf,
+            //     user: userInf,
+            //     timeout: 60,
+            //   };
+
+            //   let logged: boolean = false;
+
+            //   try {
+            //     logged = await C6BankReset.AuthClickButton(AuthInformation);
+            //     await C6BankReset.getPage().waitForSelector(
+            //       `#ButtonConfirmar_txt`
+            //     );
+            //   } catch (error) {
+            //     logged = await C6BankReset.AuthClickButton(AuthInformation);
+            //   }
+
+            //   if (logged) {
+            //     await C6BankReset.getPage().waitForSelector(
+            //       `#ButtonConfirmar_txt`
+            //     );
+
+            //     await C6BankReset.getPage().type(
+            //       `input[name="AltSen1$SenhaAtual$CAMPO"]`,
+            //       pwdInf
+            //     );
+            //     const newPwd = userInf?.substring(0, 6) + "Lc@2023";
+
+            //     await C6BankReset.getPage().type(
+            //       `input[name="AltSen1$NovaSenha$CAMPO"]`,
+            //       newPwd
+            //     );
+            //     await C6BankReset.getPage().type(
+            //       `input[name="AltSen1$ConfNovaSenha$CAMPO"]`,
+            //       newPwd
+            //     );
+            //     await C6BankReset.getPage().click(`#ButtonConfirmar_txt`);
+            //     await C6BankReset.close();
+            //     AuthCreate.pwd = newPwd;
+            //     AuthCreate.created = true;
+            //   }
+            // } catch (error) {
+            //   await C6BankReset.close();
+            //   logger.error(error);
+            // }
 
             AuthCreate.created = true;
           } catch (error) {
@@ -352,7 +425,7 @@ async function resetAndGetInformation(C6Bank: Puppeteer) {
         await C6BankReset.getPage().on("dialog", async (dialog) => {
           const msgUserConected = `Usuário já autenticado em outra estação. Deseja desconectar-se da estação e conectar-se através desta?`;
           if (dialog.message() !== msgUserConected) {
-            AuthCreate.messageDialog = dialog.message();
+            AuthCreate.messageDialog.push(dialog.message());
           }
 
           await dialog.accept();
@@ -415,7 +488,7 @@ async function resetAndGetInformation(C6Bank: Puppeteer) {
     }
   } catch (error) {
     logger.error(error);
-    AuthCreate.messageDialog = "Usuário não localizado.";
+    AuthCreate.messageDialog = ["Usuário não localizado."];
     AuthCreate.created = false;
   }
 }
@@ -448,7 +521,7 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
     for (const row of UsersTicketZero) {
       try {
         AuthCreate.created = false;
-        AuthCreate.messageDialog = null;
+        AuthCreate.messageDialog = [];
         AuthCreate.partner = null;
         AuthCreate.pwd = null;
         AuthCreate.user = null;
@@ -562,7 +635,7 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
             outputResult.push(result);
           }
         } catch (error) {
-          AuthCreate.messageDialog = "Usuário não localizado";
+          AuthCreate.messageDialog = ["Usuário não localizado"];
           AuthCreate.created = false;
           const result: IUsersTicketsOutput = await persistUserAndPassword(
             row,
@@ -592,7 +665,7 @@ async function alterPasswordBeforeResetAndCreated(
   await C6Bank.getPage().on("dialog", async (dialog) => {
     const msgUserConected = `Usuário já autenticado em outra estação. Deseja desconectar-se da estação e conectar-se através desta?`;
     if (dialog.message() !== msgUserConected) {
-      AuthCreate.messageDialog = dialog.message();
+      AuthCreate.messageDialog.push(dialog.message());
     }
 
     await dialog.accept();
@@ -651,7 +724,7 @@ async function persistUserAndPassword(
     ...row,
     USERNAME: data.user,
     PASSWORD: data.pwd,
-    INFORMATIONS: data.messageDialog[0],
+    INFORMATIONS: data.messageDialog.pop(),
     STATUS:
       data.pwd !== null && data.pwd !== ""
         ? "finalizado com sucesso"
