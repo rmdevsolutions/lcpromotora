@@ -1,6 +1,7 @@
 import puppeteer, { Browser, Page } from "puppeteer";
 import puppeteerExtra from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
+const userPreferences = require("puppeteer-extra-plugin-user-preferences");
 
 puppeteerExtra.use(StealthPlugin());
 
@@ -23,11 +24,19 @@ class Puppeteer {
   }
 
   async initialize(): Promise<void> {
+    puppeteerExtra.use(
+      userPreferences({
+        directory_upgrade: true,
+        prompt_for_download: false,
+        default_directory: "../downloads",
+      })
+    );
+
     this.browser = await puppeteerExtra.launch({
       args: ["--no-sandbox"],
       protocolTimeout: 0,
-      headless: "new",
-      // executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
+      headless: false,
+      executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
     });
 
     this.page = await this.browser.newPage();
