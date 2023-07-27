@@ -125,8 +125,29 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
           AuthCreate.user = null;
 
           await C6Bank.navigate(
-            `https://c6.c6consig.com.br/WebAutorizador/MenuWeb/Cadastro/Operador/UI.CD.CadOperadores.aspx`
+            `https://c6.c6consig.com.br/WebAutorizador/MenuWeb/Cadastro/Operador/UI.CD.ManutencaoUsuarios.aspx`
           );
+
+          await C6Bank.getPage().waitForSelector(
+            `#ctl00_Cph_FIJN1_jnInserir_txtCpf_CAMPO`
+          );
+
+          await C6Bank.say(
+            `#ctl00_Cph_FIJN1_jnInserir_txtCpf_CAMPO`,
+            row.SYS_IDENTITY?.replace(/[.-]/g, "")
+          );
+
+          await C6Bank.say(
+            `#ctl00_Cph_FIJN1_jnInserir_txtNomeUsu_CAMPO`,
+            row.SYS_CLIENT?.trim()
+          );
+
+          await C6Bank.selectOption(
+            `#ctl00_Cph_FIJN1_jnInserir_cmbOrigem3_CAMPO`,
+            `000128`
+          );
+
+          await C6Bank.getPage().click("#btnIncluir_txt");
 
           await C6Bank.getPage().waitForSelector(
             `#ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_txtCpf_CAMPO`
@@ -200,7 +221,7 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
           await C6Bank.getPage().click(`#btnConfirmar_txt`);
           await new Promise((resolve) => setTimeout(resolve, 500));
 
-          const iframeSelector = `#ctl00_Cph_popConfirmacao_frameAjuda`;
+          const iframeSelector = `#ctl00_Cph_popBoleana_frameAjuda`;
 
           // Wait for the frame with the specified ID
           try {
@@ -210,7 +231,7 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
                 return frames.find((f) => f.frameElement?.id === id);
               },
               { timeout: 10000 },
-              `ctl00_Cph_popConfirmacao_frameAjuda`
+              `ctl00_Cph_popBoleana_frameAjuda`
             );
 
             logger.info(frame);
@@ -221,34 +242,35 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
 
             const iframeContent = await iframeElementHandle.contentFrame();
 
-            await iframeContent.waitForSelector(`#btnImprimir_txt`);
+            await iframeContent.waitForSelector(`#btnOpTrue_txt`);
+            await iframeContent.click(`#btnOpTrue_txt`);
 
-            const newUserSelector = `input[name="ctl00$cph$FIJN1$jnDadosLogin$txtLoginUsu$CAMPO"]`;
-            const newPartnerSelector = `input[name="ctl00$cph$FIJN1$jnDadosLogin$txtPromotoraPrincipal$CAMPO"]`;
-            const newPasswordSelector = `input[name="ctl00$cph$FIJN1$jnDadosLogin$txtSenha$CAMPO"]`;
+            // const newUserSelector = `input[name="ctl00$cph$FIJN1$jnDadosLogin$txtLoginUsu$CAMPO"]`;
+            // const newPartnerSelector = `input[name="ctl00$cph$FIJN1$jnDadosLogin$txtPromotoraPrincipal$CAMPO"]`;
+            // const newPasswordSelector = `input[name="ctl00$cph$FIJN1$jnDadosLogin$txtSenha$CAMPO"]`;
 
-            const userInf = await iframeContent.$eval(
-              newUserSelector,
-              (el) => el.value
-            );
-            AuthCreate.user = userInf;
+            // const userInf = await iframeContent.$eval(
+            //   newUserSelector,
+            //   (el) => el.value
+            // );
+            // AuthCreate.user = userInf;
 
-            AuthCreate.partner = await iframeContent.$eval(
-              newPartnerSelector,
-              (el) => el.value
-            );
+            // AuthCreate.partner = await iframeContent.$eval(
+            //   newPartnerSelector,
+            //   (el) => el.value
+            // );
 
-            AuthCreate.pwd = await iframeContent.$eval(
-              newPasswordSelector,
-              (el) => el.value
-            );
+            // AuthCreate.pwd = await iframeContent.$eval(
+            //   newPasswordSelector,
+            //   (el) => el.value
+            // );
 
-            const pwdInf = await iframeContent.$eval(
-              newPasswordSelector,
-              (el) => el.value
-            );
+            // const pwdInf = await iframeContent.$eval(
+            //   newPasswordSelector,
+            //   (el) => el.value
+            // );
 
-            AuthCreate.pwd = pwdInf;
+            // AuthCreate.pwd = pwdInf;
 
             // const C6BankReset = new Puppeteer();
             // await C6BankReset.initialize();
@@ -315,6 +337,12 @@ async function createUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
             //   logger.error(error);
             // }
 
+            AuthCreate.user = "enviado por email";
+            AuthCreate.pwd = "enviado por email";
+            AuthCreate.partner = null;
+            AuthCreate.messageDialog = [
+              "Usuário criado com sucesso, necessário realizar biometria facial.",
+            ];
             AuthCreate.created = true;
           } catch (error) {
             logger.error(error);
@@ -527,15 +555,16 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
         AuthCreate.user = null;
 
         await C6Bank.navigate(
-          `https://c6.c6consig.com.br/WebAutorizador/MenuWeb/Cadastro/Operador/UI.CD.CadOperadores.aspx`
+          `https://c6.c6consig.com.br/WebAutorizador/MenuWeb/Cadastro/Operador/UI.CD.ManutencaoUsuarios.aspx`
         );
 
         await C6Bank.getPage().waitForSelector(
-          `#ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_txtCpf_CAMPO`
+          `#ctl00_Cph_FIJN1_jnAlterar_UcGridManUsu_txtCampoPesq_CAMPO`
         );
-        await C6Bank.getPage().waitForSelector(`#btnConfirmar_txt`);
 
-        const selectorCPF = `input[name="ctl00$Cph$FIJN1$jnGridManutencao$UcGridManUsu$txtCampoPesq$CAMPO"]`;
+        await C6Bank.getPage().waitForSelector(`#btnVoltar_txt`);
+
+        const selectorCPF = `input[name="ctl00$Cph$FIJN1$jnAlterar$UcGridManUsu$txtCampoPesq$CAMPO"]`;
         await C6Bank.getPage().type(
           selectorCPF,
           row.SYS_IDENTITY?.replace(/[.-]/g, "")
@@ -551,10 +580,10 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
               return resultSearch !== "Nenhum Usuário para visualização.";
             },
             { timeout: 10000 },
-            `#ctl00_Cph_FIJN1_jnGridManutencao_UcGridManUsu_gdvUsuarios > tbody > tr:nth-child(2) > td`
+            `#ctl00_Cph_FIJN1_jnAlterar_UcGridManUsu_gdvUsuarios> tbody > tr:nth-child(2) > td`
           );
 
-          const statusUserSelector = `#ctl00_Cph_FIJN1_jnGridManutencao_UcGridManUsu_gdvUsuarios  a`;
+          const statusUserSelector = `#ctl00_Cph_FIJN1_jnAlterar_UcGridManUsu_gdvUsuarios a`;
 
           const optionsTagA = await C6Bank.getPage().$$(statusUserSelector);
           const statusUser = await optionsTagA[1].evaluate(
@@ -566,68 +595,153 @@ async function resetUserC6Bank(): Promise<IUsersTicketsOutput[] | []> {
             await optionsTagA[1].evaluate((el) => el.click());
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
-            const selectorStats = `select[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$cmbStatus$CAMPO"]`;
-            await C6Bank.getPage().waitForSelector(selectorStats);
-            await C6Bank.getPage().select(selectorStats, "Ativo");
+            let iframeSelector = `#ctl00_Cph_popBoleana_frameAjuda`;
 
-            try {
-              await new Promise((resolve) => setTimeout(resolve, 1000));
-              await C6Bank.getPage().waitForSelector("#ctl00_UpdPrs", {
-                hidden: true,
-              });
+            let frame = await C6Bank.getPage().waitForFunction(
+              (id) => {
+                const frames = Array.from(window.frames);
+                return frames.find((f) => f.frameElement?.id === id);
+              },
+              { timeout: 10000 },
+              `ctl00_Cph_popBoleana_frameAjuda`
+            );
 
-              await C6Bank.say(
-                "#ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_txtEmail_CAMPO",
-                "usuarios@lcpromotora.com.br"
-              );
+            logger.info(frame);
 
-              await C6Bank.say(
-                "#ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_txtDDDCel_CAMPO",
-                "98"
-              );
+            let iframeElementHandle = await C6Bank.getPage().$(iframeSelector);
 
-              await C6Bank.say(
-                "#ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_txtCel_CAMPO",
-                "987436947"
-              );
+            let iframeContent = await iframeElementHandle.contentFrame();
 
-              await C6Bank.say(
-                "#ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_txtDtNasc_CAMPO",
-                row.SYS_DATE_BORN.length > 0 ? row.SYS_DATE_BORN : "19/01/1993"
-              );
-            } catch (error) {}
+            await iframeContent.waitForSelector(`#btnOpTrue_txt`);
+            await iframeContent.click(`#btnOpTrue_txt`);
 
-            await new Promise((resolve) => setTimeout(resolve, 500));
-            await C6Bank.getPage().click(`#btnConfirmar_txt`);
+            await new Promise((resolve) => setTimeout(resolve, 1000));
 
-            try {
-              const framePopConfirm = await waitFrameAndGetInformation(
-                "ctl00_Cph_popConfirmacao_frameAjuda",
-                C6Bank
-              );
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await C6Bank.getPage().waitForSelector("#ctl00_UpdPrs", {
+              hidden: true,
+            });
 
-              if (framePopConfirm !== null) {
-                logger.info("modo frame localizado");
-                await new Promise((resolve) => setTimeout(resolve, 500));
-                await framePopConfirm.waitForSelector(`#btnVoltar_txt`);
-                await framePopConfirm.click(`#btnVoltar_txt`);
-              }
+            // const selectorStats = `select[name="ctl00$Cph$FIJN1$jnDadosLogin$UcDUsu$cmbStatus$CAMPO"]`;
+            // await C6Bank.getPage().waitForSelector(selectorStats);
+            // await C6Bank.getPage().select(selectorStats, "Ativo");
 
-              await C6Bank.getPage().waitForSelector(`#btnPesquisar_txt`);
-              await C6Bank.getPage().click(`#btnPesquisar_txt`);
+            // try {
 
-              await resetAndGetInformation(C6Bank);
-              const result: IUsersTicketsOutput = await persistUserAndPassword(
-                row,
-                AuthCreate
-              );
-              outputResult.push(result);
-            } catch (ex) {
-              logger.error(ex);
-            }
+            //   await C6Bank.say(
+            //     "#ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_txtEmail_CAMPO",
+            //     "usuarios@lcpromotora.com.br"
+            //   );
+
+            //   await C6Bank.say(
+            //     "#ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_txtDDDCel_CAMPO",
+            //     "98"
+            //   );
+
+            //   await C6Bank.say(
+            //     "#ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_txtCel_CAMPO",
+            //     "987436947"
+            //   );
+
+            //   await C6Bank.say(
+            //     "#ctl00_Cph_FIJN1_jnDadosLogin_UcDUsu_txtDtNasc_CAMPO",
+            //     row.SYS_DATE_BORN.length > 0 ? row.SYS_DATE_BORN : "19/01/1993"
+            //   );
+            // } catch (error) {}
+
+            await C6Bank.getPage().waitForSelector(
+              `#ctl00_Cph_FIJN1_jnAlterar_UcGridManUsu_gdvUsuarios > tbody > tr.normal > td:nth-child(9) > input[type=image]`
+            );
+            await C6Bank.getPage().click(
+              `#ctl00_Cph_FIJN1_jnAlterar_UcGridManUsu_gdvUsuarios > tbody > tr.normal > td:nth-child(9) > input[type=image]`
+            );
+
+            iframeSelector = `#ctl00_Cph_popBoleana_frameAjuda`;
+
+            frame = await C6Bank.getPage().waitForFunction(
+              (id) => {
+                const frames = Array.from(window.frames);
+                return frames.find((f) => f.frameElement?.id === id);
+              },
+              { timeout: 10000 },
+              `ctl00_Cph_popBoleana_frameAjuda`
+            );
+
+            logger.info(frame);
+
+            iframeElementHandle = await C6Bank.getPage().$(iframeSelector);
+
+            iframeContent = await iframeElementHandle.contentFrame();
+
+            await iframeContent.waitForSelector(`#btnOpTrue_txt`);
+            await iframeContent.click(`#btnOpTrue_txt`);
+            AuthCreate.user = "enviado por email";
+            AuthCreate.pwd = "enviado por email";
+            AuthCreate.created = true;
+            const result: IUsersTicketsOutput = await persistUserAndPassword(
+              row,
+              AuthCreate
+            );
+            outputResult.push(result);
+
+            // try {
+            //   const framePopConfirm = await waitFrameAndGetInformation(
+            //     "ctl00_Cph_popConfirmacao_frameAjuda",
+            //     C6Bank
+            //   );
+
+            //   if (framePopConfirm !== null) {
+            //     logger.info("modo frame localizado");
+            //     await new Promise((resolve) => setTimeout(resolve, 500));
+            //     await framePopConfirm.waitForSelector(`#btnVoltar_txt`);
+            //     await framePopConfirm.click(`#btnVoltar_txt`);
+            //   }
+
+            //   await C6Bank.getPage().waitForSelector(`#btnPesquisar_txt`);
+            //   await C6Bank.getPage().click(`#btnPesquisar_txt`);
+
+            //   await resetAndGetInformation(C6Bank);
+            //   const result: IUsersTicketsOutput = await persistUserAndPassword(
+            //     row,
+            //     AuthCreate
+            //   );
+            //   outputResult.push(result);
+            // } catch (ex) {
+            //   logger.error(ex);
+            // }
           } else {
             logger.info("Entrou no reset sem ativar");
-            await resetAndGetInformation(C6Bank);
+            await C6Bank.getPage().waitForSelector(
+              `#ctl00_Cph_FIJN1_jnAlterar_UcGridManUsu_gdvUsuarios > tbody > tr.normal > td:nth-child(9) > input[type=image]`
+            );
+            await C6Bank.getPage().click(
+              `#ctl00_Cph_FIJN1_jnAlterar_UcGridManUsu_gdvUsuarios > tbody > tr.normal > td:nth-child(9) > input[type=image]`
+            );
+
+            const iframeSelector = `#ctl00_Cph_popBoleana_frameAjuda`;
+
+            const frame = await C6Bank.getPage().waitForFunction(
+              (id) => {
+                const frames = Array.from(window.frames);
+                return frames.find((f) => f.frameElement?.id === id);
+              },
+              { timeout: 10000 },
+              `ctl00_Cph_popBoleana_frameAjuda`
+            );
+
+            logger.info(frame);
+
+            const iframeElementHandle = await C6Bank.getPage().$(
+              iframeSelector
+            );
+
+            const iframeContent = await iframeElementHandle.contentFrame();
+
+            await iframeContent.waitForSelector(`#btnOpTrue_txt`);
+            await iframeContent.click(`#btnOpTrue_txt`);
+
+            AuthCreate.created = true;
+
             const result: IUsersTicketsOutput = await persistUserAndPassword(
               row,
               AuthCreate
