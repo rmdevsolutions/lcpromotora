@@ -284,7 +284,7 @@ async function sendMail(Mail: IServiceMail) {
 async function getAllTicketsForNewUsers(req: Request, res: Response) {
   const result = await getAllUsersTickets();
   // res.json(result);
-  res.set("Content-Type", "image/png");
+  // res.set("Content-Type", "image/png");
   res.send(result);
 }
 
