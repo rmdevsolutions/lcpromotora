@@ -35,8 +35,8 @@ class Puppeteer {
     this.browser = await puppeteerExtra.launch({
       args: ["--no-sandbox"],
       protocolTimeout: 0,
-      headless: false,
-      executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
+      headless: "new",
+      // executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
     });
 
     this.page = await this.browser.newPage();

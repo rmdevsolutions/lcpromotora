@@ -45,3 +45,6 @@
 {"level":"error","name":"TargetCloseError","timestamp":"2023-07-18T16:46:18.070Z"}
 {"level":"error","name":"TimeoutError","timestamp":"2023-07-24T13:54:15.073Z"}
 {"level":"error","name":"TargetCloseError","timestamp":"2023-07-24T13:55:12.774Z"}
+{"level":"error","name":"TargetCloseError","timestamp":"2023-07-28T12:57:22.901Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-31T12:44:19.264Z"}
+{"level":"error","name":"TimeoutError","timestamp":"2023-07-31T12:45:00.667Z"}
